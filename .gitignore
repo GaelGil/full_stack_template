@@ -1,7 +1,6 @@
 # backend 
-/env
-/bin
-/lib
+backend/env/
+
 
 
 
