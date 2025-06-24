@@ -2,7 +2,7 @@ import "../css/Home.css";
 
 const Login: React.FC = () => {
   return (
-    <div className="home">
+    <div className="login">
       <h1>Log In</h1>
     </div>
   );
