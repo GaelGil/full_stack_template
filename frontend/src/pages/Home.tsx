@@ -1,11 +1,8 @@
 import "../css/Home.css";
+import About from "../components/About";
 
 const Home: React.FC = () => {
-  return (
-    <div className="home">
-      <h1>home</h1>
-    </div>
-  );
+  return <About />;
 };
 
 export default Home;
