@@ -1,14 +1,11 @@
-# Use a Debian-based Node image to avoid musl-related issues
-FROM node:22-slim
+FROM node:18
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package.json tsconfig.json tsconfig.app.json tsconfig.node.json vite.config.ts ./
+COPY src ./src
+COPY index.html ./
 
 RUN npm install
-
-COPY . .
-
-EXPOSE 5173
 
 CMD ["npm", "run", "dev"]
