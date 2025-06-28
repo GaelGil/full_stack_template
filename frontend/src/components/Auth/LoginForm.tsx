@@ -1,36 +1,32 @@
-// import { Form, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Container } from "react-bootstrap";
+import AuthForm from "./AuthForm";
 
-// const AlgorithmForm: React.FC = () => (
-//   <Form onSubmit={onSubmit} className="p-3 border rounded bg-light shadow">
-//     <Form.Group className="mb-3">
-//       <Form.Label className="fw-bold">Algorithms</Form.Label>
-//       <Form.Select value={value} onChange={onChange}>
-//         <option value="">Select Algorithm</option>
-//         {options.map((opt) => (
-//           <option key={opt} value={opt}>
-//             {opt}
-//           </option>
-//         ))}
-//       </Form.Select>
-//     </Form.Group>
+const LogInForm = () => {
+  const [login, setLogin] = useState("false");
+  // function to handle if algorithm changes
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    setLogin("true");
+  };
 
-//     <Button
-//       type="submit"
-//       variant="primary"
-//       className="w-100 mb-2"
-//       disabled={disabled}
-//     >
-//       Submit
-//     </Button>
-//     <Button
-//       type="button"
-//       variant="secondary"
-//       className="w-100"
-//       onClick={onReset}
-//     >
-//       Reset
-//     </Button>
-//   </Form>
-// );
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
 
-// export default AlgorithmForm;
+  return (
+    <Container className="d-flex flex-column justify-content-center align-items-center min-vh-100">
+      <div style={{ maxWidth: "400px", width: "100%" }}>
+        {/* importing algorithm form component with sorting specific values */}
+        <AuthForm
+          value={login}
+          options={["User Name", "Password"]}
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+        />
+      </div>
+    </Container>
+  );
+};
+
+export default LogInForm;
