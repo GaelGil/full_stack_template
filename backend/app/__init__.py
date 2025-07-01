@@ -4,18 +4,20 @@ from app.extensions import db, bcrypt, jwt, migrate
 from app.routes import auth
 from app.models import user
 from flask_cors import CORS
+import os
 
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
+    print("DATABASE_URL =", os.environ.get("DATABASE_URL"))
     db.init_app(app)
     bcrypt.init_app(app)
     jwt.init_app(app)
     migrate.init_app(app, db)
+    CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 
     app.register_blueprint(auth)
-    CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
 
     return app
