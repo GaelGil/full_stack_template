@@ -3,6 +3,7 @@ from app.config import Config
 from app.extensions import db, bcrypt, jwt, migrate
 from app.routes import auth
 from app.models import user
+from flask_cors import CORS
 
 
 def create_app():
@@ -15,5 +16,6 @@ def create_app():
     migrate.init_app(app, db)
 
     app.register_blueprint(auth)
+    CORS(app)
 
     return app
