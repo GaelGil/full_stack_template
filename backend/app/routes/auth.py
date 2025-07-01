@@ -37,7 +37,7 @@ def login():
         return jsonify({'error': "username and password required"}), 400
     
     user = User.query.filter_by(username=username).first()
-    if not user or not bcrypt.check_password_hash(user.password, password)
+    if not user or not bcrypt.check_password_hash(user.password, password):
         return jsonify({'error': 'invalid username or password'}), 401
     
     access_token = create_access_token(identity=user.id)
