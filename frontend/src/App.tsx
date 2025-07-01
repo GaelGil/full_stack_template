@@ -1,9 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import SignUp from "./pages/SignUp";
-import Login from "./pages/LogIn";
-import "./css/App.css";
+import AuthPage from "./pages/Auth";
 import Navigation from "./components/Layout/NavBar";
+import "./css/App.css";
 
 function App() {
   return (
@@ -12,8 +11,7 @@ function App() {
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<AuthPage />} />
         </Routes>
       </main>
     </>
