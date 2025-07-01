@@ -1,14 +1,19 @@
 from flask import Flask
+from app.config import Config
+from app.extensions import db, bcrypt, jwt, migrate
+from app.routes import auth
+from app.models import user
 
-def create_app(config_class=None):
+
+def create_app():
     app = Flask(__name__)
-    if config_class:
-        app.config.from_object(config_class)
+    app.config.from_object(Config)
 
-    from .routes.auth import auth_bp
-    from .routes.main import main_bp
+    db.init_app(app)
+    bcrypt.init_app(app)
+    jwt.init_app(app)
+    migrate.init_app(app, db)
 
-    app.register_blueprint(auth_bp)
-    app.register_blueprint(main_bp)
+    app.register_blueprint(auth)
 
     return app
