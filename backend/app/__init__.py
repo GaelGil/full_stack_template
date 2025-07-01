@@ -13,6 +13,8 @@ def create_app():
 
     print("DATABASE_URL =", os.environ.get("DATABASE_URL"))
     db.init_app(app)
+    with app.app_context():
+        db.create_all()
     bcrypt.init_app(app)
     jwt.init_app(app)
     migrate.init_app(app, db)
