@@ -1,6 +1,6 @@
 # backend 
 backend/env/
-
+.flaskenv
 __pycache__
 
 
