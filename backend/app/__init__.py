@@ -16,6 +16,6 @@ def create_app():
     migrate.init_app(app, db)
 
     app.register_blueprint(auth)
-    CORS(app)
+    CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
 
     return app
