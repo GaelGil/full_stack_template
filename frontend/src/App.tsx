@@ -4,6 +4,7 @@ import AuthPage from "./pages/Auth";
 import Navigation from "./components/Layout/NavBar";
 import FeedPage from "./pages/Feed";
 import "./css/App.css";
+import ProfilePage from "./pages/Home";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<AuthPage />} />
           <Route path="/feed" element={<FeedPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </main>
     </>

@@ -1,12 +1,7 @@
 import "../css/Home.css";
-import About from "../components/About";
 
-const Home: React.FC = () => {
-  return (
-    <>
-      <About />
-    </>
-  );
+const ProfilePage: React.FC = () => {
+  return <></>;
 };
 
-export default Home;
+export default ProfilePage;

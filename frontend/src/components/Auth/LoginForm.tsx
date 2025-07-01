@@ -3,6 +3,10 @@ import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import AuthForm from "./AuthForm";
 
+type Props = {
+  setUser: (user: User) => void;
+};
+
 const LogInForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -40,7 +44,11 @@ const LogInForm = () => {
       const data = await response.json();
       setMessage(data.msg);
       if (response.ok) {
-        navigate("/feed");
+        localStorage.setItem("token", data.access_token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        setUser(data.user); // store in state
+        navigate("/profile");
+        navigate("/profile");
       }
     } catch (error) {
       setMessage("error signing up");

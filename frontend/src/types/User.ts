@@ -2,6 +2,7 @@
 export type User = {
   id: number;
   username: string;
+  email: string;
 };
 
 // moviecardProps type for declaring var types
