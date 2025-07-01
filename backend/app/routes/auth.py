@@ -1,7 +1,15 @@
-from flask import Blueprint
+from flask import Blueprint, request, jsonify
+from app.models.user import User
+from app.extensions import db, bcrypt
+from flask_jwt_extended import create_access_token
 
-auth_bp = Blueprint('auth', __name__)
+auth = Blueprint('auth', __name__, url_prefix="/auth")
 
-@auth_bp.route("/login")
+@auth.route('/signup', methods=['POST'])
+def signup():
+    return jsonify({'msg': 'signup succesful'})
+
+@auth.route('/login', methods=['POST'])
 def login():
-    return "Login Page"
+    return jsonify({'msg': 'login succesful'})
+
