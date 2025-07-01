@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
-// import type { AuthFormProps } from "../../types/AuthFormProp";
+import { useNavigate } from "react-router-dom";
 import AuthForm from "./AuthForm";
 
 const SignUpForm = () => {
@@ -9,6 +9,7 @@ const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
   // function to handle if algorithm changes
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -44,7 +45,7 @@ const SignUpForm = () => {
       const data = await response.json();
       setMessage(data.msg);
       if (response.ok) {
-        console.log("here");
+        navigate("/login");
       }
     } catch (error) {
       setMessage("error signing up");
