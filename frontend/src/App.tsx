@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import AuthPage from "./pages/Auth";
 import Navigation from "./components/Layout/NavBar";
+import FeedPage from "./pages/Feed";
 import "./css/App.css";
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<AuthPage />} />
+          <Route path="/feed" element={<FeedPage />} />
         </Routes>
       </main>
     </>

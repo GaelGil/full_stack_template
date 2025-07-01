@@ -45,7 +45,7 @@ const SignUpForm = () => {
       const data = await response.json();
       setMessage(data.msg);
       if (response.ok) {
-        navigate("/login");
+        navigate("/feed");
       }
     } catch (error) {
       setMessage("error signing up");
