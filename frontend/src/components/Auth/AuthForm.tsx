@@ -2,26 +2,49 @@ import { Form } from "react-bootstrap";
 import type { AuthFormProps } from "../../types/AuthFormProp.ts";
 
 const AuthForm: React.FC<AuthFormProps> = ({
-  value,
-  options,
+  isLogin,
+  username,
+  password,
+  email,
   onChange,
   onSubmit,
 }) => (
   <Form onSubmit={onSubmit} className="p-3 border rounded bg-light shadow">
-    {options.map((opt) => (
-      <Form.Group className="mb-3" key={opt}>
-        <Form.Label className="fw-bold">{opt}</Form.Label>
+    {/* {options.map((opt) => ( */}
+    {/* <Form.Group className="mb-3" key={opt}> */}
+    <Form.Label className="fw-bold">Username</Form.Label>
+    <Form.Control
+      type="text"
+      name="username"
+      value={username}
+      onChange={onChange}
+      required
+    />
+
+    {!isLogin && (
+      <>
+        <Form.Label className="fw-bold">Email</Form.Label>
         <Form.Control
           type="text"
-          name={opt}
-          placeholder={`Enter ${opt}`}
-          value={value[opt] || ""}
+          name="email"
+          value={email}
           onChange={onChange}
+          required
         />
-      </Form.Group>
-    ))}
+      </>
+    )}
+
+    <Form.Label className="fw-bold">Password</Form.Label>
+    <Form.Control
+      type="text"
+      name="password"
+      value={password}
+      onChange={onChange}
+      required
+    />
+
     <button type="submit" className="btn btn-primary">
-      Submit
+      {isLogin ? "Login" : "Sign Up"}
     </button>
   </Form>
 );

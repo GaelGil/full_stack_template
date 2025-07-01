@@ -1,6 +1,8 @@
 export type AuthFormProps = {
-  value: string; // each option gets its own input value
-  options: string[];
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  isLogin: boolean;
+  username: string;
+  password: string;
+  email?: string; // optional for login
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 };

@@ -4,15 +4,30 @@ import { Container } from "react-bootstrap";
 import AuthForm from "./AuthForm";
 
 const SignUpForm = () => {
-  const [login, setLogin] = useState("false");
+  // const [login, setLogin] = useState("false");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   // function to handle if algorithm changes
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     e.preventDefault();
-    setLogin("true");
+    const { name, value } = e.target;
+    switch (name) {
+      case "username":
+        setUsername(value);
+        break;
+      case "password":
+        setPassword(value);
+        break;
+      case "email":
+        setEmail(value);
+        break;
+      default:
+        break;
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -41,8 +56,10 @@ const SignUpForm = () => {
       <div style={{ maxWidth: "400px", width: "100%" }}>
         {/* importing algorithm form component with sorting specific values */}
         <AuthForm
-          value={login}
-          options={["Email", "User Name", "Password", "Confirm Password"]}
+          isLogin={false}
+          username={username}
+          email={email}
+          password={password}
           onChange={handleChange}
           onSubmit={handleSubmit}
         />
