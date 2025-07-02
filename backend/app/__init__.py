@@ -1,10 +1,9 @@
 from flask import Flask
 from app.config import Config
 from app.extensions import db, bcrypt, jwt, migrate, socketio
-from app.routes import auth
+from app.routes.auth import auth
+from app.routes.profile import profile
 from flask_cors import CORS
-import os
-
 
 def create_app():
     app = Flask(__name__)
@@ -20,5 +19,6 @@ def create_app():
     CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 
     app.register_blueprint(auth)
+    app.register_blueprint(profile)
 
     return app
