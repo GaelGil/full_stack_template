@@ -42,16 +42,17 @@ const LogInForm = () => {
         body: JSON.stringify({ username, password }),
       });
       const data = await response.json();
+      console.log(data);
       setMessage(data.msg);
       if (response.ok) {
         localStorage.setItem("token", data.access_token);
         localStorage.setItem("user", JSON.stringify(data.user));
-        // setUser(data.user); // store in state
         const userId = data.user.id;
-        navigate(`/profile${userId}`);
+        navigate(`/profile/${userId}`);
       }
     } catch (error) {
-      setMessage("error signing up");
+      console.error("Login Error", error);
+      setMessage("Error Logging in");
     }
   };
   return (

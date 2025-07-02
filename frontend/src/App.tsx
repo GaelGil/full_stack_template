@@ -4,7 +4,8 @@ import AuthPage from "./pages/Auth";
 import Navigation from "./components/Layout/NavBar";
 import FeedPage from "./pages/Feed";
 import "./css/App.css";
-import ProfilePage from "./pages/Home";
+import ProfilePage from "./pages/Profile";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -15,7 +16,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<AuthPage />} />
           <Route path="/feed" element={<FeedPage />} />
-          <Route path="/profile/:userId" element={<ProfilePage />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/profile/:userId" element={<ProfilePage />} />
+          </Route>
         </Routes>
       </main>
     </>
