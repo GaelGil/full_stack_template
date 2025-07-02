@@ -24,3 +24,4 @@ class User(db.Model):
 
     # posts relationship
     posts = db.relationship('Post', backref='author', lazy=True)
+

@@ -1,6 +1,6 @@
 from flask import Flask
 from app.config import Config
-from app.extensions import db, bcrypt, jwt, migrate
+from app.extensions import db, bcrypt, jwt, migrate, socketio
 from app.routes import auth
 from flask_cors import CORS
 import os
@@ -9,10 +9,9 @@ import os
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
-
-    print("DATABASE_URL =", os.environ.get("DATABASE_URL"))
     db.init_app(app)
-    migrate.init_app(app, db)  # ✅ This sets up Flask-Migrate
+    migrate.init_app(app, db)  # for flask migrate
+    socketio.init_app(app)
     with app.app_context():
         from app.models import user, post
     bcrypt.init_app(app)
