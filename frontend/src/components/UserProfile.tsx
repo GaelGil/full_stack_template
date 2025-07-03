@@ -56,7 +56,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
             <ListGroup.Item>{profile?.email}</ListGroup.Item>
           </ListGroup>
         </Card>
-        <Friends userId={profile?.id} />
+      </div>
+
+      <div className="d-flex vh-100 justify-content-center align-items-center">
+        <Friends id={profile?.id} />
       </div>
     </>
   );

@@ -1,10 +1,13 @@
-// movie type for declaring var types
-export type Friend = {
+export type UserFriendsProps = {
+  userId?: string;
+};
+
+export type UserFriends = {
   id: number;
   username: string;
 };
 
-// moviecardProps type for declaring var types
-export type FriendProps = {
-  friend: Friend;
+export type Friend = {
+  id: number;
+  username: string;
 };
