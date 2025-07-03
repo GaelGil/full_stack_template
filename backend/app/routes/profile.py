@@ -9,7 +9,7 @@ profile = Blueprint('profile', __name__)
 @jwt_required()
 def get_profile(user_id):
     current_user_id = get_jwt_identity()
-    if user_id != current_user_id:
+    if user_id != int(current_user_id):   # convert to int for correct comparison
         return jsonify({'msg': 'unauthorized access'}), 403
     
     user = User.query.get(user_id)
