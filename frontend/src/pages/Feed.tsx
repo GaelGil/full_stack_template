@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "../css/Home.css";
-import PostCard from "../components/PostCard";
+import PostCard from "../components/ListItems/PostCard";
 import { getRecentPosts } from "../services/posts";
 import { searcUsers } from "../services/users";
 import { useNavigate } from "react-router-dom";
@@ -38,7 +38,7 @@ const FeedPage: React.FC = () => {
     if (loading) return; // if we are loading return
     setLoading(true);
     try {
-      const searchResults = await searcUsers(searchQuery); // get results
+      // const searchResults = await searcUsers(searchQuery); // get results
       navigate("/users/");
       //   setMovies(searchResults); // update the movies state with results
       setError(""); // update error state with empty string

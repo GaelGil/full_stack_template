@@ -1,13 +1,12 @@
 from flask import Flask
 from app.config import Config
 from app.extensions import db, bcrypt, jwt, migrate, socketio
-from app.routes.auth import auth
-from app.routes.profile import profile
-from app.routes.posts import posts
+from app.routes import register_routes
 from flask_cors import CORS
 
 def create_app():
     app = Flask(__name__)
+    register_routes(app)
     app.config.from_object(Config)
     db.init_app(app)
     migrate.init_app(app, db)  # for flask migrate
@@ -19,9 +18,9 @@ def create_app():
     migrate.init_app(app, db)
     CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 
-    app.register_blueprint(auth)
-    app.register_blueprint(profile)
-    app.register_blueprint(posts)
+    # app.register_blueprint(auth)
+    # app.register_blueprint(profile)
+    # app.register_blueprint(posts)
 
 
     return app
