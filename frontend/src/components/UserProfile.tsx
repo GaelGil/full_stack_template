@@ -19,6 +19,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem("token");
+      console.log(`in user profile: ${token}`);
       const res = await fetch(`http://localhost:5000/profile/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
