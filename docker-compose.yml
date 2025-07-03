@@ -25,6 +25,13 @@ services:
       - ./backend/.env
     environment:
       FLASK_ENV: development
+      FLASK_APP: run.py
+    command: >
+      sh -c "
+        # wait for db to be healthy (you already have depends_on with healthcheck)
+        flask db upgrade &&
+        flask run --host=0.0.0.0 --debug
+      "
     depends_on:
       db:
         condition: service_healthy
