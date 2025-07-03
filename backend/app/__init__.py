@@ -3,6 +3,7 @@ from app.config import Config
 from app.extensions import db, bcrypt, jwt, migrate, socketio
 from app.routes.auth import auth
 from app.routes.profile import profile
+from app.routes.posts import posts
 from flask_cors import CORS
 
 def create_app():
@@ -20,5 +21,7 @@ def create_app():
 
     app.register_blueprint(auth)
     app.register_blueprint(profile)
+    app.register_blueprint(posts)
+
 
     return app
