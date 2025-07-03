@@ -1,8 +1,10 @@
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
-import type { PostProps } from "../types/Post";
+import type { PostProps } from "../../types/Post";
+import { useState } from "react";
 
-const PostCard: React.FC<PostProps> = ({ post }) => {
+const PostCard: React.FC<PostProps> = ({ posts }) => {
+  const [posts, setPosts] = useState([]);
   return (
     <>
       <Card style={{ width: "18rem" }}>

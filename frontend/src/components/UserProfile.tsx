@@ -1,17 +1,7 @@
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-
-type UserProfileProps = {
-  userId?: string;
-};
-
-type Profile = {
-  id: number;
-  username: string;
-  email: string;
-};
+import type { UserProfileProps, Profile } from "../types/UserProfileProps";
 
 const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   const [profile, setProfile] = useState<Profile | null>(null);
