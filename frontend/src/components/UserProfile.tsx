@@ -15,7 +15,6 @@ type Profile = {
 
 const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   const [profile, setProfile] = useState<Profile | null>(null);
-  // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfile = async () => {

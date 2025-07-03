@@ -10,8 +10,6 @@ const AuthForm: React.FC<AuthFormProps> = ({
   onSubmit,
 }) => (
   <Form onSubmit={onSubmit} className="p-3 border rounded bg-light shadow">
-    {/* {options.map((opt) => ( */}
-    {/* <Form.Group className="mb-3" key={opt}> */}
     <Form.Label className="fw-bold">Username</Form.Label>
     <Form.Control
       type="text"
@@ -42,7 +40,6 @@ const AuthForm: React.FC<AuthFormProps> = ({
       onChange={onChange}
       required
     />
-
     <button type="submit" className="btn btn-primary">
       {isLogin ? "Login" : "Sign Up"}
     </button>

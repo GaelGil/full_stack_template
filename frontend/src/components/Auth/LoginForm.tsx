@@ -49,6 +49,9 @@ const LogInForm = () => {
         localStorage.setItem("user", JSON.stringify(data.user));
         const userId = data.user.id;
         navigate(`/profile/${userId}`);
+      } else {
+        setMessage(data.error);
+        // alert(data.error);
       }
     } catch (error) {
       console.error("Login Error", error);
@@ -56,8 +59,9 @@ const LogInForm = () => {
     }
   };
   return (
-    <Container className="d-flex flex-column justify-content-center align-items-center min-vh-100">
-      <div style={{ maxWidth: "400px", width: "100%" }}>
+    <Container className="d-flex flex-column justify-content-center align-items-center">
+      <div>
+        <h1> Log In</h1>
         <AuthForm
           isLogin={true}
           username={username}
@@ -65,7 +69,7 @@ const LogInForm = () => {
           onChange={handleChange}
           onSubmit={handleSubmit}
         />
-        {message && <p>{message}</p>}
+        {message && <p className="text-danger">{message}</p>}
       </div>
     </Container>
   );

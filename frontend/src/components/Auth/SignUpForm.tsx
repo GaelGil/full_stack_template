@@ -46,6 +46,8 @@ const SignUpForm = () => {
       setMessage(data.msg);
       if (response.ok) {
         navigate("/feed");
+      } else {
+        setMessage(data.error);
       }
     } catch (error) {
       setMessage("error signing up");
@@ -53,9 +55,9 @@ const SignUpForm = () => {
   };
 
   return (
-    <Container className="d-flex flex-column justify-content-center align-items-center min-vh-100">
+    <Container className="d-flex flex-column justify-content-center align-items-center">
       <h1> Sign Up</h1>
-      <div style={{ maxWidth: "400px", width: "100%" }}>
+      <div>
         {/* importing algorithm form component with sorting specific values */}
         <AuthForm
           isLogin={false}
@@ -65,7 +67,7 @@ const SignUpForm = () => {
           onChange={handleChange}
           onSubmit={handleSubmit}
         />
-        {message && <p>{message}</p>}
+        {message && <p className="text-danger">{message}</p>}
       </div>
     </Container>
   );
