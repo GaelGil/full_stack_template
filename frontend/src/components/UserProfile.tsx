@@ -19,10 +19,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
           },
         });
         if (res.ok) {
-          console.log(res);
           const data = await res.json();
-          setProfile(data.user);
-          console.log(data);
+          setProfile(data);
         } else {
           alert("unathorized");
         }
@@ -35,6 +33,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
     };
 
     if (userId) {
+      console.log(`in userprofile.tsx ${userId}`);
       fetchProfile();
     }
   }, [userId]);
