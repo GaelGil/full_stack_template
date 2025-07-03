@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 
 type UserProfileProps = {
-  userId?: string; // optional if userId can be undefined
+  userId?: string;
 };
 
 type Profile = {
@@ -48,20 +48,22 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
 
   return (
     <>
-      <Card style={{ width: "18rem" }}>
-        <Card.Body>
-          {loading ? (
-            <p>Loading profile...</p>
-          ) : profile ? (
-            <Card.Title>{profile.username}</Card.Title>
-          ) : (
-            <p>No profile data found.</p>
-          )}
-        </Card.Body>
-        <ListGroup className="list-group-flush">
-          <ListGroup.Item>{profile?.email}</ListGroup.Item>
-        </ListGroup>
-      </Card>
+      <div className="d-flex vh-100 justify-content-center align-items-center">
+        <Card style={{ width: "18rem" }}>
+          <Card.Body>
+            {loading ? (
+              <p>Loading profile...</p>
+            ) : profile ? (
+              <Card.Title>{profile.username}</Card.Title>
+            ) : (
+              <p>No profile data found.</p>
+            )}
+          </Card.Body>
+          <ListGroup className="list-group-flush">
+            <ListGroup.Item>{profile?.email}</ListGroup.Item>
+          </ListGroup>
+        </Card>
+      </div>
     </>
   );
 };
