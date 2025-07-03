@@ -15,48 +15,52 @@ type Profile = {
 
 const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchProfile = async () => {
+      setLoading(true);
       const token = localStorage.getItem("token");
-      console.log(`in user profile: ${token}`);
-      const res = await fetch(`http://localhost:5000/profile/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        setProfile(data);
-      } else {
-        alert("Unauthorized");
+      try {
+        const res = await fetch(`http://localhost:5000/profile/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setProfile(data);
+        } else {
+          alert("unathorized");
+        }
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+        alert("Failed to fetch profile");
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchProfile();
+    if (userId) {
+      fetchProfile();
+    }
   }, [userId]);
 
   return (
     <>
       <Card style={{ width: "18rem" }}>
-        {/* <Card.Img variant="top" src="holder.js/100px180?text=Image cap" /> */}
         <Card.Body>
-          {profile ? (
+          {loading ? (
+            <p>Loading profile...</p>
+          ) : profile ? (
             <Card.Title>{profile.username}</Card.Title>
           ) : (
-            <p>Loading profile...</p>
+            <p>No profile data found.</p>
           )}
         </Card.Body>
         <ListGroup className="list-group-flush">
-          <ListGroup.Item>Cras justo odio</ListGroup.Item>
-          <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-          <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+          <ListGroup.Item>{profile?.email}</ListGroup.Item>
         </ListGroup>
-        <Card.Body>
-          <Card.Link href="#">Card Link</Card.Link>
-          <Card.Link href="#">Another Link</Card.Link>
-        </Card.Body>
       </Card>
     </>
   );
