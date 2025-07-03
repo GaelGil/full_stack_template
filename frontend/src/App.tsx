@@ -6,6 +6,7 @@ import FeedPage from "./pages/Feed";
 import "./css/App.css";
 import ProfilePage from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
+import Footer from "./components/Layout/Footer";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           </Route>
         </Routes>
       </main>
+      <Footer />
     </>
   );
 }

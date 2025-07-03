@@ -47,6 +47,7 @@ const LogInForm = () => {
       if (response.ok) {
         localStorage.setItem("token", data.access_token);
         localStorage.setItem("user", JSON.stringify(data.user));
+        console.log(data.user);
         const userId = data.user.id;
         navigate(`/profile/${userId}`);
       } else {

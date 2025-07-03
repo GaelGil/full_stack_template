@@ -2,6 +2,7 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import { useEffect, useState } from "react";
 import type { UserProfileProps, Profile } from "../types/UserProfileProps";
+import Friends from "./Lists/Friends";
 
 const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -18,8 +19,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
           },
         });
         if (res.ok) {
+          console.log(res);
           const data = await res.json();
-          setProfile(data);
+          setProfile(data.user);
+          console.log(data);
         } else {
           alert("unathorized");
         }
@@ -41,6 +44,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
       <div className="d-flex vh-100 justify-content-center align-items-center">
         <Card style={{ width: "18rem" }}>
           <Card.Body>
+            {/* <h1>hello</h1> */}
             {loading ? (
               <p>Loading profile...</p>
             ) : profile ? (
@@ -53,6 +57,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
             <ListGroup.Item>{profile?.email}</ListGroup.Item>
           </ListGroup>
         </Card>
+        <Friends userId={profile?.id} />
       </div>
     </>
   );
