@@ -17,6 +17,8 @@ def signup():
         return jsonify({'error': "username and password required"}), 400
     if User.query.filter_by(username=username).first():
         return jsonify({'error': 'username taken'}), 409
+    if User.query.filter_by(email=email).first():
+        return jsonify({'error': 'email taken'}), 409
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
     new_user = User(username=username, email=email, password=hashed_password)
     db.session.add(new_user)
