@@ -30,6 +30,7 @@ services:
       sh -c "
         # wait for db to be healthy (you already have depends_on with healthcheck)
         flask db upgrade &&
+        python seed.py &&
         flask run --host=0.0.0.0 --debug
       "
     depends_on:
