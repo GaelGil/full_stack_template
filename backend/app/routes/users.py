@@ -1,9 +1,9 @@
 from flask import Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.models.user import User
-users = Blueprint('users', __name__, url_prefix='/users')
+users = Blueprint('users', __name__)
 
-@users.route('/profile/<int:user_id>', methods=['GET'])
+@users.route('/profile//<int:user_id>/friends', methods=['GET'])
 @jwt_required()
 def get_user_friends(user_id):
     current_user_id = get_jwt_identity()

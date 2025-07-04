@@ -19,22 +19,6 @@ def create_app():
     with app.app_context():
         from app.models import user, post
 
-    # ✅ Add JWT error handlers here
-    @jwt.unauthorized_loader
-    def unauthorized_callback(callback):
-        return jsonify({'msg': 'Missing or invalid JWT'}), 401
-
-    @jwt.invalid_token_loader
-    def invalid_token_callback(callback):
-        return jsonify({'msg': 'Invalid token'}), 422
-
-    @jwt.expired_token_loader
-    def expired_token_callback(jwt_header, jwt_payload):
-        return jsonify({'msg': 'Token has expired'}), 401
-
-    @jwt.revoked_token_loader
-    def revoked_token_callback(jwt_header, jwt_payload):
-        return jsonify({'msg': 'Token has been revoked'}), 401
 
     register_routes(app)
     return app
