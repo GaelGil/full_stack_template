@@ -59,7 +59,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
       </div>
 
       <div className="d-flex vh-100 justify-content-center align-items-center">
-        <Friends id={profile?.id} />
+        <Friends userId={profile?.id} />
       </div>
     </>
   );
