@@ -7,7 +7,7 @@ const HomeBanner = () => {
       <Container>
         <h1>Welcome to My Website</h1>
         <p className="lead">
-          This is a simple homepage built with React and Bootstrap.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum.
         </p>
         <Button variant="primary">Get Started</Button>
       </Container>
