@@ -2,6 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import AuthPage from "./pages/Auth";
 import Navigation from "./components/Layout/NavBar";
+
+// import AboutSection from "./components/Home/AboutSection";
 import FeedPage from "./pages/Feed";
 import "./css/App.css";
 import ProfilePage from "./pages/Profile";
@@ -22,6 +24,7 @@ function App() {
           </Route>
         </Routes>
       </main>
+
       <Footer />
     </>
   );
