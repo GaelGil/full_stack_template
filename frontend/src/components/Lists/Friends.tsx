@@ -12,14 +12,18 @@ const Friends = ({ userId }: { userId: number }) => {
       setLoading(true);
       const token = localStorage.getItem("token");
       try {
-        const res = await fetch(`http://localhost:5000/friends/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await fetch(
+          `http://localhost:5000/profile/${userId}/friends`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         if (res.ok) {
           const data = await res.json();
-          setFriends(data);
+          console.log(data.friends);
+          setFriends(data.friends);
         } else {
           alert("unathorized");
         }
@@ -45,7 +49,8 @@ const Friends = ({ userId }: { userId: number }) => {
           <div className="loading">No friends</div>
         ) : (
           <Card.Body>
-            {friends.map((friend: User) => (
+            <Card.Header as="h2">Friends</Card.Header>
+            {friends?.map((friend: User) => (
               <UserCard user={friend} key={friend.id} />
             ))}
           </Card.Body>

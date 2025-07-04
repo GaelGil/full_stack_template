@@ -33,7 +33,6 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
     };
 
     if (userId) {
-      console.log(`in userprofile.tsx ${userId}`);
       fetchProfile();
     }
   }, [userId]);

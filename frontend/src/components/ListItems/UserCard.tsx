@@ -5,7 +5,6 @@ const UserCard: React.FC<UserProps> = ({ user }) => {
   return (
     <>
       <Card>
-        <Card.Header as="h5">Featured</Card.Header>
         <Card.Body>
           <Card.Title>{user.username}</Card.Title>
         </Card.Body>
