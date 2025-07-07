@@ -9,6 +9,7 @@ import "./css/App.css";
 import ProfilePage from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
 import Footer from "./components/Layout/Footer";
+import FriendsPage from "./pages/Friends";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route path="/profile/:userId" element={<ProfilePage />} />
           </Route>
+          <Route path="/friends/:userId" element={<FriendsPage />} />
         </Routes>
       </main>
 

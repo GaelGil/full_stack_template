@@ -11,10 +11,7 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link
-              as={Link}
-              to="/https://github.com/GaelGil/algorithm-visualizer"
-            >
+            <Nav.Link as={Link} to="/">
               About
             </Nav.Link>
             <Nav.Link as={Link} to="/login">

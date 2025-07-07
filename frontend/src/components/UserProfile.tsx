@@ -1,5 +1,5 @@
 import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
+// import ListGroup from "react-bootstrap/ListGroup";
 import { useEffect, useState } from "react";
 import type { UserProfileProps, Profile } from "../types/UserProfileProps";
 import Friends from "./Lists/Friends";
@@ -47,14 +47,14 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
             {loading ? (
               <p>Loading profile...</p>
             ) : profile ? (
-              <Card.Title>{profile.username}</Card.Title>
+              <>
+                <Card.Title>{profile.username}</Card.Title>
+                <Card.Subtitle>{profile.email}</Card.Subtitle>
+              </>
             ) : (
               <p>No profile data found.</p>
             )}
           </Card.Body>
-          <ListGroup className="list-group-flush">
-            <ListGroup.Item>{profile?.email}</ListGroup.Item>
-          </ListGroup>
         </Card>
       </div>
 
