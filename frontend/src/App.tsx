@@ -10,6 +10,7 @@ import ProfilePage from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
 import Footer from "./components/Layout/Footer";
 import FriendsPage from "./pages/Friends";
+// import RedirectIfAuthenticated from "./components/Auth/RedirectAuth";
 
 function App() {
   return (
@@ -18,7 +19,15 @@ function App() {
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<AuthPage />} />
+          <Route
+            path="/login"
+            element={
+              // <RedirectIfAuthenticated>
+              // {" "}
+              <AuthPage />
+              // </RedirectIfAuthenticated>
+            }
+          />
           <Route path="/feed" element={<FeedPage />} />
           <Route element={<PrivateRoute />}>
             <Route path="/profile/:userId" element={<ProfilePage />} />
