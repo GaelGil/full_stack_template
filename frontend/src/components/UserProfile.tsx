@@ -1,5 +1,8 @@
 import Card from "react-bootstrap/Card";
-// import ListGroup from "react-bootstrap/ListGroup";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Spinner from "react-bootstrap/Spinner";
 import { useEffect, useState } from "react";
 import type { Profile } from "../types/UserProfileProps";
 import Friends from "./Lists/Friends";
@@ -35,23 +38,40 @@ const UserProfile = ({ userId }: { userId: string }) => {
 
   return (
     <>
-      <div className="d-flex vh-100 justify-content-center align-items-center">
-        <Card style={{ width: "18rem" }}>
-          <Card.Body>
-            {loading ? (
-              <Card.Title>Loading Profile ... </Card.Title>
-            ) : profile ? (
-              <>
-                <Card.Title>{profile.username}</Card.Title>
-                <Card.Subtitle>{profile.email}</Card.Subtitle>
-              </>
-            ) : (
-              <Card.Title>No profile data found</Card.Title>
-            )}
-          </Card.Body>
-        </Card>
-        {profile?.id && <Friends userId={String(profile.id)} />}{" "}
-      </div>
+      <Container className="vh-100 d-flex align-items-center">
+        <Row className="justify-content-center w-100">
+          <Col xs={12} md={5} className="mb-4">
+            <Card
+              className="shadow-sm rounded"
+              style={{ minHeight: "220px", padding: "1rem" }}
+            >
+              <Card.Body className="d-flex flex-column justify-content-center text-center">
+                {loading ? (
+                  <>
+                    <Spinner animation="border" variant="primary" />
+                    <Card.Title className="mt-3">Loading Profile...</Card.Title>
+                  </>
+                ) : profile ? (
+                  <>
+                    <Card.Title className="mb-2 fs-3">
+                      {profile.username}
+                    </Card.Title>
+                    <Card.Subtitle className="text-muted">
+                      {profile.email}
+                    </Card.Subtitle>
+                  </>
+                ) : (
+                  <Card.Title>No profile data found</Card.Title>
+                )}
+              </Card.Body>
+            </Card>
+          </Col>
+
+          <Col xs={12} md={5}>
+            {profile?.id && <Friends userId={String(profile.id)} />}
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 };
