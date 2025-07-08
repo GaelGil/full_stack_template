@@ -2,6 +2,7 @@ import Card from "react-bootstrap/Card";
 import { useState, useEffect } from "react";
 import PostCard from "../ListItems/PostCard";
 import type { Post } from "../../types/Post";
+import { fetchUserPosts } from "../../api/posts";
 
 const Posts = ({ userId }: { userId: number }) => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -11,22 +12,12 @@ const Posts = ({ userId }: { userId: number }) => {
     const fetchPosts = async () => {
       setLoading(true);
       const token = localStorage.getItem("token");
+      if (!token || !userId) {
+        return;
+      }
       try {
-        const response = await fetch(
-          `http://localhost:5000/posts/user${userId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        if (response.ok) {
-          console.log();
-          const data = await response.json();
-          setPosts(data.posts);
-        } else {
-          alert("unathorized");
-        }
+        const posts = await fetchUserPosts(userId, token);
+        setPosts(posts);
       } catch (error) {
         console.log(`error ${error}`);
       } finally {

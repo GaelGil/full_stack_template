@@ -4,7 +4,7 @@ import AuthPage from "./pages/Auth";
 import Navigation from "./components/Layout/NavBar";
 
 // import AboutSection from "./components/Home/AboutSection";
-import FeedPage from "./pages/Feed";
+// import FeedPage from "./pages/Feed";
 import "./css/App.css";
 import ProfilePage from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
@@ -28,7 +28,7 @@ function App() {
               // </RedirectIfAuthenticated>
             }
           />
-          <Route path="/feed" element={<FeedPage />} />
+          {/* <Route path="/feed" element={<FeedPage />} /> */}
           <Route element={<PrivateRoute />}>
             <Route path="/profile/:userId" element={<ProfilePage />} />
           </Route>
