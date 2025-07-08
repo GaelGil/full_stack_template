@@ -1,10 +1,9 @@
 from app.extensions import db
-from sqlalchemy.orm import relationship
 
-friends = db.Table(
-    'friends',
-    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
-    db.Column('friend_id', db.Integer, db.ForeignKey('users.id'), primary_key=True)
+followers = db.Table(
+    'followers',
+    db.Column('follower_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+    db.Column('followed_id', db.Integer, db.ForeignKey('users.id'), primary_key=True)
 )
 
 class User(db.Model):
@@ -15,13 +14,14 @@ class User(db.Model):
     email = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
 
-    # friends relationship
-    friends = db.relationship(
+    # users this user is following
+    following = db.relationship(
         'User',
-        secondary=friends,
-        primaryjoin=id==friends.c.user_id,
-        secondaryjoin=id==friends.c.friend_id,
-        backref='friend_of'
+        secondary=followers,
+        primaryjoin=id==followers.c.follower_id,
+        secondaryjoin=id==followers.c.followed_id,
+        backref=db.backref('followers', lazy='dynamic'),
+        lazy='dynamic'
     )
 
     # posts relationship
