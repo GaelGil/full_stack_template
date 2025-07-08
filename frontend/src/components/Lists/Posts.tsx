@@ -2,7 +2,7 @@ import Card from "react-bootstrap/Card";
 import { useState, useEffect } from "react";
 import PostCard from "../ListItems/PostCard";
 import type { Post } from "../../types/Post";
-import { fetchUserPosts } from "../../api/posts";
+import { getUserPosts } from "../../api/posts";
 
 const Posts = ({ userId }: { userId: number }) => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -16,7 +16,7 @@ const Posts = ({ userId }: { userId: number }) => {
         return;
       }
       try {
-        const posts = await fetchUserPosts(userId, token);
+        const posts = await getUserPosts(userId, token);
         setPosts(posts);
       } catch (error) {
         console.log(`error ${error}`);

@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import { useEffect, useState } from "react";
 import type { Profile } from "../types/UserProfileProps";
 import Friends from "./Lists/Friends";
-import { fetchUserProfile } from "../api/users";
+import { getUserProfile } from "../api/users";
 
 const UserProfile = ({ userId }: { userId: string }) => {
   const [profile, setProfile] = useState<Profile>();
@@ -18,7 +18,7 @@ const UserProfile = ({ userId }: { userId: string }) => {
         return;
       }
       try {
-        const user = await fetchUserProfile(userId, token);
+        const user = await getUserProfile(userId, token);
         console.log("Fetched user:", user);
         setProfile(user);
       } catch (error) {
@@ -39,7 +39,7 @@ const UserProfile = ({ userId }: { userId: string }) => {
         <Card style={{ width: "18rem" }}>
           <Card.Body>
             {loading ? (
-              <p>Loading profile...</p>
+              <Card.Title>Loading Profile ... </Card.Title>
             ) : profile ? (
               <>
                 <Card.Title>{profile.username}</Card.Title>
@@ -50,7 +50,7 @@ const UserProfile = ({ userId }: { userId: string }) => {
             )}
           </Card.Body>
         </Card>
-        <Friends userId={profile?.id ? String(profile.id) : ""} />{" "}
+        {profile?.id && <Friends userId={String(profile.id)} />}{" "}
       </div>
     </>
   );

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import UserCard from "../ListItems/UserCard";
 import type { User } from "../../types/User";
 import { useNavigate } from "react-router-dom";
-import { fetchUserFriends } from "../../api/users";
+import { getUserFriends } from "../../api/users";
 
 const Friends = ({ userId }: { userId: string }) => {
   const [friends, setFriends] = useState<User[]>([]);
@@ -18,7 +18,7 @@ const Friends = ({ userId }: { userId: string }) => {
         return;
       }
       try {
-        const userFriends = await fetchUserFriends(userId, token);
+        const userFriends = await getUserFriends(userId, token);
         setFriends(userFriends);
       } catch (error) {
         console.error("Error fetching friends", error);
@@ -35,28 +35,30 @@ const Friends = ({ userId }: { userId: string }) => {
   return (
     <>
       <Card style={{ width: "18rem" }}>
-        {loading ? (
-          <div className="loading">Loading...</div>
-        ) : friends.length === 0 ? (
-          <div className="loading">No friends</div>
-        ) : (
-          <Card.Body>
-            <Card.Header as="h2">Friends</Card.Header>
-            <Card.Subtitle
-              onClick={() => navigate(`/friends/${userId}`)}
-              style={{
-                cursor: "pointer",
-                color: "blue",
-                textDecoration: "underline",
-              }}
-            >
-              All Friends
-            </Card.Subtitle>
-            {friends?.map((friend: User) => (
-              <UserCard user={friend} key={friend.id} />
-            ))}
-          </Card.Body>
-        )}
+        <Card.Body>
+          {loading ? (
+            <Card.Header as="h2">Loading</Card.Header>
+          ) : friends.length === 0 ? (
+            <Card.Header as="h2">No Friends</Card.Header>
+          ) : (
+            <>
+              <Card.Header as="h2">Friends</Card.Header>
+              <Card.Subtitle
+                onClick={() => navigate(`/friends/${userId}`)}
+                style={{
+                  cursor: "pointer",
+                  color: "blue",
+                  textDecoration: "underline",
+                }}
+              >
+                All Friends
+              </Card.Subtitle>
+              {friends?.map((friend: User) => (
+                <UserCard user={friend} key={friend.id} />
+              ))}
+            </>
+          )}
+        </Card.Body>
       </Card>
     </>
   );
