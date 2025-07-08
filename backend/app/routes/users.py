@@ -3,7 +3,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.models.user import User
 users = Blueprint('users', __name__)
 
-@users.route('/friends/<int:user_id>', methods=['GET'])
+@users.route('/followers/<int:user_id>', methods=['GET'])
 @jwt_required()
 def get_user_friends(user_id):
     current_user_id = get_jwt_identity()
@@ -15,15 +15,15 @@ def get_user_friends(user_id):
         return jsonify({'msg': 'User not found'}), 404
     
 
-    friends_list = [
+    followers_list = [
         {
-            'id': friend.id,
-            'username': friend.username,
+            'id': follower.id,
+            'username': follower.username,
         }
-        for friend in user.friends
+        for follower in user.followers
     ]
 
-    return jsonify({'friends': friends_list}), 200
+    return jsonify({'followers': followers_list}), 200
 
 
 # @users.route('/user/<string:username>/', methods=['GET'])
