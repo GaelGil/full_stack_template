@@ -1,7 +1,9 @@
 from flask import Blueprint, request, jsonify
 from app.models.user import User
 from app.extensions import db, bcrypt
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required,  get_jwt
+from app.extensions import blacklist
+
 from sqlalchemy.exc import IntegrityError
 
 auth = Blueprint('auth', __name__, url_prefix="/auth")
@@ -52,3 +54,10 @@ def login():
         }
     }), 200
 
+
+@auth.route('/logout', methods=['POST'])
+@jwt_required()
+def logout():
+    jti = get_jwt()["jti"]  # get the token ID
+    blacklist.add(jti)      # mark it as revoked
+    return jsonify({"msg": "Successfully logged out"}), 200
