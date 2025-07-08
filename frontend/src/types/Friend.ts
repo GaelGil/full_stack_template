@@ -3,11 +3,11 @@ export type UserFriendsProps = {
 };
 
 export type UserFriends = {
-  id: number;
+  id: string;
   username: string;
 };
 
 export type Friend = {
-  id: number;
+  id: string;
   username: string;
 };

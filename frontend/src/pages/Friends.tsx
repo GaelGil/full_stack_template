@@ -7,7 +7,7 @@ const FriendsPage: React.FC = () => {
   return (
     <>
       <div className="d-flex vh-100 justify-content-center align-items-center">
-        <Friends userId={Number(userId)} />
+        {userId && <Friends userId={userId} />}
       </div>
     </>
   );

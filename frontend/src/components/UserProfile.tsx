@@ -1,39 +1,34 @@
 import Card from "react-bootstrap/Card";
 // import ListGroup from "react-bootstrap/ListGroup";
 import { useEffect, useState } from "react";
-import type { UserProfileProps, Profile } from "../types/UserProfileProps";
+import type { Profile } from "../types/UserProfileProps";
 import Friends from "./Lists/Friends";
+import { fetchUserProfile } from "../api/users";
 
-const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
-  const [profile, setProfile] = useState<Profile | null>(null);
+const UserProfile = ({ userId }: { userId: string }) => {
+  const [profile, setProfile] = useState<Profile>();
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchProfile = async () => {
       setLoading(true);
       const token = localStorage.getItem("token");
+      console.log("Token from localStorage:", token);
+      if (!token || !userId) {
+        return;
+      }
       try {
-        const res = await fetch(`http://localhost:5000/profile/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (res.ok) {
-          const data = await res.json();
-          setProfile(data);
-        } else {
-          alert("unathorized");
-        }
+        const user = await fetchUserProfile(userId, token);
+        console.log("Fetched user:", user);
+        setProfile(user);
       } catch (error) {
         console.error("Error fetching profile:", error);
-        alert("Failed to fetch profile");
       } finally {
         setLoading(false);
       }
     };
 
     if (userId) {
-      console.log(`in userprofile.tsx ${userId}`);
       fetchProfile();
     }
   }, [userId]);
@@ -43,7 +38,6 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
       <div className="d-flex vh-100 justify-content-center align-items-center">
         <Card style={{ width: "18rem" }}>
           <Card.Body>
-            {/* <h1>hello</h1> */}
             {loading ? (
               <p>Loading profile...</p>
             ) : profile ? (
@@ -52,14 +46,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
                 <Card.Subtitle>{profile.email}</Card.Subtitle>
               </>
             ) : (
-              <p>No profile data found.</p>
+              <Card.Title>No profile data found</Card.Title>
             )}
           </Card.Body>
         </Card>
-      </div>
-
-      <div className="d-flex vh-100 justify-content-center align-items-center">
-        <Friends userId={profile?.id ?? 0} />
+        <Friends userId={profile?.id ? String(profile.id) : ""} />{" "}
       </div>
     </>
   );

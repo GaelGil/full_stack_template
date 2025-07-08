@@ -1,6 +1,6 @@
 // movie type for declaring var types
 export type User = {
-  id: number;
+  id: string;
   username: string;
   email: string;
 };

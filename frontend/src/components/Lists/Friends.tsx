@@ -3,39 +3,32 @@ import { useState, useEffect } from "react";
 import UserCard from "../ListItems/UserCard";
 import type { User } from "../../types/User";
 import { useNavigate } from "react-router-dom";
+import { fetchUserFriends } from "../../api/users";
 
-const Friends = ({ userId }: { userId: number }) => {
+const Friends = ({ userId }: { userId: string }) => {
   const [friends, setFriends] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchProfile = async () => {
+    const fetchFriends = async () => {
       setLoading(true);
       const token = localStorage.getItem("token");
+      if (!token || !userId) {
+        return;
+      }
       try {
-        const res = await fetch(`http://localhost:5000/friends/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (res.ok) {
-          const data = await res.json();
-          console.log(data.friends);
-          setFriends(data.friends);
-        } else {
-          alert("unathorized");
-        }
+        const userFriends = await fetchUserFriends(userId, token);
+        setFriends(userFriends);
       } catch (error) {
-        console.error("Error fetching profile:", error);
-        alert("Failed to get friends");
+        console.error("Error fetching friends", error);
       } finally {
         setLoading(false);
       }
     };
 
     if (userId) {
-      fetchProfile();
+      fetchFriends();
     }
   }, [userId]);
 

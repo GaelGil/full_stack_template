@@ -1,10 +1,27 @@
-const BASE_URL: string = "http://localhost:5000/";
+import { BASE_URL } from "./url";
 
-// basic api call to search using an api and return results
-export const searcUsers = async (query: string) => {
-  const response = await fetch(
-    `${BASE_URL}/search/user?&query=${encodeURIComponent(query)}`
-  );
-  const data = await response.json();
-  return data.results;
+export const fetchUserProfile = async (userId: string, token: string) => {
+  const res = await fetch(`${BASE_URL}/profile/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) {
+    return new Error("Error");
+  }
+  const data = await res.json();
+  return data;
+};
+
+export const fetchUserFriends = async (userId: string, token: string) => {
+  const res = await fetch(`${BASE_URL}/friends/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) {
+    return new Error("Error");
+  }
+  const data = await res.json();
+  return data.friends;
 };

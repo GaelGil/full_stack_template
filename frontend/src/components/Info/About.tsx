@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
-function WithHeaderStyledExample() {
+function AboutComponent() {
   return (
     <Card>
       <Card.Header as="h5">Featured</Card.Header>
@@ -16,4 +16,4 @@ function WithHeaderStyledExample() {
   );
 }
 
-export default WithHeaderStyledExample;
+export default AboutComponent;

@@ -3,7 +3,7 @@ export type UserProfileProps = {
 };
 
 export type Profile = {
-  id: number;
+  id: string;
   username: string;
   email: string;
 };
