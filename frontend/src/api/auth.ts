@@ -17,7 +17,7 @@ export const login = async (username: string, password: string) => {
     return new Error("Error");
   }
   const data = await res.json();
-  return data.user;
+  return data;
 };
 
 export const signup = async (
@@ -37,5 +37,5 @@ export const signup = async (
     return new Error("Error");
   }
   const data = await res.json();
-  return data.user;
+  return data;
 };

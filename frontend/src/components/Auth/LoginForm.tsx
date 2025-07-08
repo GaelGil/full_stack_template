@@ -2,15 +2,13 @@ import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import AuthForm from "./AuthForm";
-
-// type Props = {
-//   setUser: (user: User) => void;
-// };
+import { login } from "../../api/auth";
 
 const LogInForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
   // function to handle if algorithm changes
   const handleChange = (
@@ -32,31 +30,22 @@ const LogInForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+    setMessage("logging in");
+    console.log(loading);
     try {
-      const response = await fetch("http://localhost:5000/auth/login", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
-      const data = await response.json();
-      console.log(data);
+      const data = await login(username, password);
       setMessage(data.msg);
-      if (response.ok) {
-        localStorage.setItem("token", data.access_token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        console.log(data.user);
-        const userId = data.user.id;
-        navigate(`/profile/${userId}`);
-      } else {
-        setMessage(data.error);
-        // alert(data.error);
-      }
+      setMessage(data.msg);
+      localStorage.setItem("token", data.access_token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      const userId = data.user.id;
+      navigate(`/profile/${userId}`);
     } catch (error) {
       console.error("Login Error", error);
       setMessage("Error Logging in");
+    } finally {
+      setLoading(false);
     }
   };
   return (

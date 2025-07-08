@@ -10,7 +10,7 @@ import { getUserProfile } from "../api/users";
 
 const UserProfile = ({ userId }: { userId: string }) => {
   const [profile, setProfile] = useState<Profile>();
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>();
 
   useEffect(() => {
     const fetchProfile = async () => {
