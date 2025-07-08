@@ -36,7 +36,6 @@ const LogInForm = () => {
     try {
       const data = await login(username, password);
       setMessage(data.msg);
-      setMessage(data.msg);
       localStorage.setItem("token", data.access_token);
       localStorage.setItem("user", JSON.stringify(data.user));
       const userId = data.user.id;

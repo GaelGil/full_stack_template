@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import AuthForm from "./AuthForm";
+import { signup } from "../../api/auth";
 
 const SignUpForm = () => {
-  // const [login, setLogin] = useState("false");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState<boolean>();
   const navigate = useNavigate();
   // function to handle if algorithm changes
   const handleChange = (
@@ -33,24 +34,16 @@ const SignUpForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+    console.log(loading);
     try {
-      const response = await fetch("http://localhost:5000/auth/signup", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, email, password }),
-      });
-      const data = await response.json();
+      const data = await signup(username, email, password);
       setMessage(data.msg);
-      if (response.ok) {
-        navigate("/feed");
-      } else {
-        setMessage(data.error);
-      }
+      navigate("/feed");
     } catch (error) {
       setMessage("error signing up");
+    } finally {
+      setLoading(false);
     }
   };
 
