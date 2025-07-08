@@ -14,7 +14,7 @@ export const getUserProfile = async (userId: string, token: string) => {
 };
 
 export const getUser = async (userId: string, token: string) => {
-  const res = await fetch(`${BASE_URL}/profile/${userId}`, {
+  const res = await fetch(`${BASE_URL}/user/${userId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
