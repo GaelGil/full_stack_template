@@ -26,8 +26,8 @@ export const getUser = async (userId: string, token: string) => {
   return data;
 };
 
-export const getUserFriends = async (userId: string, token: string) => {
-  const res = await fetch(`${BASE_URL}/friends/${userId}`, {
+export const getUserFollowers = async (userId: string, token: string) => {
+  const res = await fetch(`${BASE_URL}/followers/${userId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -36,7 +36,7 @@ export const getUserFriends = async (userId: string, token: string) => {
     return new Error("Error");
   }
   const data = await res.json();
-  return data.friends;
+  return data.followers;
 };
 
 export const searchUsers = async (query: string, token: string) => {

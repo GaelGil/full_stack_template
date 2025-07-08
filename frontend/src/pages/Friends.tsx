@@ -1,4 +1,4 @@
-import Friends from "../components/Lists/Friends";
+import Friends from "../components/Lists/Followers";
 import { useParams } from "react-router-dom";
 
 const FriendsPage: React.FC = () => {

@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import UserCard from "../ListItems/UserCard";
 import type { User } from "../../types/User";
 import { useNavigate } from "react-router-dom";
-import { getUserFriends } from "../../api/users";
+import { getUserFollowers } from "../../api/users";
 
-const Friends = ({ userId }: { userId: string }) => {
-  const [friends, setFriends] = useState<User[]>([]);
+const Followers = ({ userId }: { userId: string }) => {
+  const [followers, setFollowers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
@@ -18,8 +18,8 @@ const Friends = ({ userId }: { userId: string }) => {
         return;
       }
       try {
-        const userFriends = await getUserFriends(userId, token);
-        setFriends(userFriends);
+        const userFollowers = await getUserFollowers(userId, token);
+        setFollowers(userFollowers);
       } catch (error) {
         console.error("Error fetching friends", error);
       } finally {
@@ -38,7 +38,7 @@ const Friends = ({ userId }: { userId: string }) => {
         <Card.Body>
           {loading ? (
             <Card.Header as="h2">Loading</Card.Header>
-          ) : friends.length === 0 ? (
+          ) : followers.length === 0 ? (
             <Card.Header as="h2">No Friends</Card.Header>
           ) : (
             <>
@@ -53,8 +53,8 @@ const Friends = ({ userId }: { userId: string }) => {
               >
                 All Friends
               </Card.Subtitle>
-              {friends?.map((friend: User) => (
-                <UserCard user={friend} key={friend.id} />
+              {followers?.map((follower: User) => (
+                <UserCard user={follower} key={follower.id} />
               ))}
             </>
           )}
@@ -64,4 +64,4 @@ const Friends = ({ userId }: { userId: string }) => {
   );
 };
 
-export default Friends;
+export default Followers;

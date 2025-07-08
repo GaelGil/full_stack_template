@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 import { useEffect, useState } from "react";
 import type { Profile } from "../types/UserProfileProps";
-import Friends from "./Lists/Friends";
+import Followers from "./Lists/Followers";
 import { getUserProfile } from "../api/users";
 
 const UserProfile = ({ userId }: { userId: string }) => {
@@ -68,7 +68,7 @@ const UserProfile = ({ userId }: { userId: string }) => {
           </Col>
 
           <Col xs={12} md={5}>
-            {profile?.id && <Friends userId={String(profile.id)} />}
+            {profile?.id && <Followers userId={String(profile.id)} />}
           </Col>
         </Row>
       </Container>
