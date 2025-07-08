@@ -1,13 +1,13 @@
 import Card from "react-bootstrap/Card";
-import { useState, useEffect, use } from "react";
-import UserCard from "../ListItems/UserCard";
-import type { User } from "../../types/User";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import PostCard from "../ListItems/PostCard";
+import type { Post } from "../../types/Post";
+// import { useNavigate } from "react-router-dom";
 
-const PostCard = ({ userId }: { userId: number }) => {
+const Posts = ({ userId }: { userId: number }) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -24,6 +24,8 @@ const PostCard = ({ userId }: { userId: number }) => {
         );
         if (response.ok) {
           console.log();
+          const data = await response.json();
+          setPosts(data.posts);
         } else {
           alert("unathorized");
         }
@@ -41,14 +43,18 @@ const PostCard = ({ userId }: { userId: number }) => {
   return (
     <>
       <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
         <Card.Body>
-          <Card.Title>{post.username}</Card.Title>
-          <Card.Text>{post.caption}</Card.Text>
+          {loading ? (
+            <Card.Title>Loading ... </Card.Title>
+          ) : posts.length === 0 ? (
+            <Card.Title> No Posts </Card.Title>
+          ) : (
+            posts?.map((post: Post) => <PostCard post={post} key={post.id} />)
+          )}
         </Card.Body>
       </Card>
     </>
   );
 };
 
-export default PostCard;
+export default Posts;

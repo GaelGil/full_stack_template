@@ -1,6 +1,6 @@
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
-import type { PostProps } from "../types/Post";
+import type { PostProps } from "../../types/Post";
 
 const PostCard: React.FC<PostProps> = ({ post }) => {
   return (
