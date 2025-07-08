@@ -1,8 +1,42 @@
 import Card from "react-bootstrap/Card";
-import { useState } from "react";
+import { useState, useEffect, use } from "react";
+import UserCard from "../ListItems/UserCard";
+import type { User } from "../../types/User";
+import { useNavigate } from "react-router-dom";
 
-const PostCard = () => {
-  const [friends, setFriends] = useState([]);
+const PostCard = ({ userId }: { userId: number }) => {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState<boolean>();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      setLoading(true);
+      const token = localStorage.getItem("token");
+      try {
+        const response = await fetch(
+          `http://localhost:5000/posts/user${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.ok) {
+          console.log();
+        } else {
+          alert("unathorized");
+        }
+      } catch (error) {
+        console.log(`error ${error}`);
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (userId) {
+      fetchPosts;
+    }
+  }, []);
 
   return (
     <>
