@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import "../css/Home.css";
 import PostCard from "../components/ListItems/PostCard";
-import { getRecentPosts } from "../services/posts";
-import { searcUsers } from "../services/users";
+import { getRecentPosts } from "../api/posts";
+import { searcUsers } from "../api/users";
 import { useNavigate } from "react-router-dom";
 import type { Post } from "../types/Post";
 // home component

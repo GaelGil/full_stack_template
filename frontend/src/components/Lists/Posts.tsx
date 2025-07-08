@@ -2,12 +2,10 @@ import Card from "react-bootstrap/Card";
 import { useState, useEffect } from "react";
 import PostCard from "../ListItems/PostCard";
 import type { Post } from "../../types/Post";
-// import { useNavigate } from "react-router-dom";
 
 const Posts = ({ userId }: { userId: number }) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>();
-  // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
