@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import AuthForm from "./AuthForm";
-import { signup } from "../../api/auth";
+import { login, signup } from "../../api/auth";
 
 const SignUpForm = () => {
   const [username, setUsername] = useState("");
@@ -39,7 +39,15 @@ const SignUpForm = () => {
     try {
       const data = await signup(username, email, password);
       setMessage(data.msg);
-      navigate("/feed");
+      setMessage("logging in");
+      setLoading(true);
+      const user = await login(username, password);
+      setMessage(user.msg);
+      localStorage.setItem("token", user.access_token);
+      localStorage.setItem("user", JSON.stringify(user.user));
+      const userId = user.user.id;
+      setLoading(false);
+      navigate(`/profile/${userId}`);
     } catch (error) {
       setMessage("error signing up");
     } finally {
