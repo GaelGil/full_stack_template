@@ -2,15 +2,12 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import AuthPage from "./pages/Auth";
 import Navigation from "./components/Layout/NavBar";
-
-// import AboutSection from "./components/Home/AboutSection";
-// import FeedPage from "./pages/Feed";
 import "./css/App.css";
 import ProfilePage from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
 import Footer from "./components/Layout/Footer";
-import FriendsPage from "./pages/Friends";
-// import RedirectIfAuthenticated from "./components/Auth/RedirectAuth";
+import FollowersPage from "./pages/Followers";
+import PostsPage from "./pages/Posts";
 
 function App() {
   return (
@@ -32,7 +29,8 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route path="/profile/:userId" element={<ProfilePage />} />
           </Route>
-          <Route path="/friends/:userId" element={<FriendsPage />} />
+          <Route path="/followers/:userId" element={<FollowersPage />} />
+          <Route path="/posts/:userId" element={<PostsPage />} />
         </Routes>
       </main>
 

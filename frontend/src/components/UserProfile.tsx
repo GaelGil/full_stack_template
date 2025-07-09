@@ -90,6 +90,16 @@ const UserProfile = ({ userId }: { userId: string }) => {
                         >
                           Edit Profile
                         </Card.Subtitle>
+                        <Card.Subtitle
+                          onClick={() => navigate(`/new_post/${userId}`)}
+                          style={{
+                            cursor: "pointer",
+                            color: "blue",
+                            textDecoration: "underline",
+                          }}
+                        >
+                          New Post
+                        </Card.Subtitle>
                       </div>
                     </Col>
                   </Row>
