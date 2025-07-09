@@ -7,7 +7,8 @@ import ProfilePage from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
 import Footer from "./components/Layout/Footer";
 import FollowersPage from "./pages/Followers";
-import PostsPage from "./pages/Posts";
+import NewPostPage from "./pages/NewPostPage";
+// import N
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
             <Route path="/profile/:userId" element={<ProfilePage />} />
           </Route>
           <Route path="/followers/:userId" element={<FollowersPage />} />
-          <Route path="/posts/:userId" element={<PostsPage />} />
+          <Route path="/new_post/:userId" element={<NewPostPage />} />
         </Routes>
       </main>
 
