@@ -4,13 +4,14 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 import { useEffect, useState } from "react";
-import type { Profile } from "../types/UserProfileProps";
+import type { User } from "../types/User";
 import { getUserProfile } from "../api/users";
 import { Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { getDefaultPhoto } from "../api/helper";
 
 const UserProfile = ({ userId }: { userId: string }) => {
-  const [profile, setProfile] = useState<Profile>();
+  const [profile, setProfile] = useState<User>();
   const [loading, setLoading] = useState<boolean>();
   const navigate = useNavigate();
 
@@ -54,7 +55,7 @@ const UserProfile = ({ userId }: { userId: string }) => {
                   <Row className="align-items-center">
                     <Col xs={4} className="text-center">
                       <Image
-                        src={profile.pfp || "https://via.placeholder.com/100"}
+                        src={profile.pfp || getDefaultPhoto()}
                         roundedCircle
                         fluid
                         alt="Profile Avatar"
