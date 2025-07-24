@@ -33,11 +33,11 @@ with app.app_context():
         db.session.add_all([post1, post2])
         db.session.commit()
 
-        alice.friends.append(bob)
-        alice.friends.append(charlie)
+        alice.followers.append(bob)
+        alice.followers.append(charlie)
 
         # Bob is friends with Alice (optional, since relationship is bidirectional)
-        bob.friends.append(alice)
+        # bob.friends.append(alice)
         db.session.commit()
 
     print("Seed data added!")
