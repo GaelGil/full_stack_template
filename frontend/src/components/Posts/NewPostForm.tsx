@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 
 const NewPostForm = () => {
@@ -11,7 +11,7 @@ const NewPostForm = () => {
   return (
     <Container className="d-flex flex-column justify-content-center align-items-center">
       <div>
-        <h1>New Post</h1>
+        <h1>New Post </h1>
       </div>
     </Container>
   );
