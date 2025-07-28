@@ -36,10 +36,7 @@ def get_user(user_id):
     return jsonify({"id": user.id, "name": user.name, "email": user.email})
 
 
-auth = Blueprint("auth", __name__, url_prefix="/auth")
-
-
-@auth.route("/signup", methods=["POST"])
+@users.route("/signup", methods=["POST"])
 def signup():
     data = request.get_json()
     username = data.get("username")
@@ -64,7 +61,7 @@ def signup():
     return jsonify({"msg": "signup succesful"}), 201
 
 
-@auth.route("/login", methods=["POST"])
+@users.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
     username = data.get("username")
@@ -86,7 +83,7 @@ def login():
     ), 200
 
 
-@auth.route("/logout", methods=["POST"])
+@users.route("/logout", methods=["POST"])
 @jwt_required()
 def logout():
     jti = get_jwt()["jti"]  # get the token ID
@@ -94,10 +91,7 @@ def logout():
     return jsonify({"msg": "Successfully logged out"}), 200
 
 
-profile = Blueprint("auth", __name__, url_prefix="/auth")
-
-
-@profile.route("/profile/<int:user_id>", methods=["GET"])
+@users.route("/profile/<int:user_id>", methods=["GET"])
 @jwt_required()
 def get_profile(user_id):
     current_user_id = get_jwt_identity()

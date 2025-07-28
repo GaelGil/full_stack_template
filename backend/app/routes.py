@@ -1,7 +1,5 @@
-from app.user.controllers import auth, users, profile
+from app.user.controllers import users
 
 
 def register_routes(app):
-    app.register_blueprint(auth)
     app.register_blueprint(users)
-    app.register_blueprint(profile)
