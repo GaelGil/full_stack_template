@@ -6,8 +6,6 @@ import "./css/App.css";
 import ProfilePage from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
 import Footer from "./components/Layout/Footer";
-import FollowersPage from "./pages/Followers";
-import NewPostPage from "./pages/NewPostPage";
 // import N
 
 function App() {
@@ -30,8 +28,6 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route path="/profile/:userId" element={<ProfilePage />} />
           </Route>
-          <Route path="/followers/:userId" element={<FollowersPage />} />
-          <Route path="/new_post/:userId" element={<NewPostPage />} />
         </Routes>
       </main>
 
