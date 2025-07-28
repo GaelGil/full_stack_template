@@ -5,7 +5,7 @@ export const isAuthenticated = () => {
 };
 
 export const login = async (username: string, password: string) => {
-  const res = await fetch(`${BASE_URL}/auth/login`, {
+  const res = await fetch(`${BASE_URL}/login`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -25,7 +25,7 @@ export const signup = async (
   email: string,
   password: string
 ) => {
-  const res = await fetch(`${BASE_URL}/auth/signup`, {
+  const res = await fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
