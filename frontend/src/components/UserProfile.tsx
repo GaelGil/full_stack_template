@@ -71,16 +71,6 @@ const UserProfile = ({ userId }: { userId: string }) => {
                       <h4 className="mb-1">@{profile.username}</h4>
                       <div className="d-flex gap-3 mt-2">
                         <Card.Subtitle
-                          onClick={() => navigate(`/friends/${userId}`)}
-                          style={{
-                            cursor: "pointer",
-                            color: "blue",
-                            textDecoration: "underline",
-                          }}
-                        >
-                          Friends
-                        </Card.Subtitle>
-                        <Card.Subtitle
                           onClick={() => navigate(`/edit-profile/${userId}`)}
                           style={{
                             cursor: "pointer",
@@ -89,16 +79,6 @@ const UserProfile = ({ userId }: { userId: string }) => {
                           }}
                         >
                           Edit Profile
-                        </Card.Subtitle>
-                        <Card.Subtitle
-                          onClick={() => navigate(`/new_post/${userId}`)}
-                          style={{
-                            cursor: "pointer",
-                            color: "blue",
-                            textDecoration: "underline",
-                          }}
-                        >
-                          New Post
                         </Card.Subtitle>
                       </div>
                     </Col>
