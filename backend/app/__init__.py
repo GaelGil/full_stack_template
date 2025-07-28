@@ -3,8 +3,6 @@ from app.config import Config
 from app.extensions import db, bcrypt, jwt, migrate, socketio, blacklist
 from app.routes import register_routes
 from flask_cors import CORS
-from flask import jsonify
-from flask_jwt_extended import JWTManager
 
 @jwt.token_in_blocklist_loader
 def check_if_token_revoked(jwt_header, jwt_payload):
@@ -23,7 +21,7 @@ def create_app():
     CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 
     with app.app_context():
-        from app.models import user, post
+        from app.user.models import user
 
 
     register_routes(app)
