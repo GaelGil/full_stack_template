@@ -14,7 +14,8 @@ RUN apt-get update && apt-get install -y curl ca-certificates \
   && apt-get autoremove -y \
   && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
+# COPY requirements.txt .
+COPY pyproject.toml .
 RUN uv sync
 
 COPY . .
