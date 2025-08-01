@@ -1,1 +1,3 @@
-export const PROJECT_LOGO = "../assets/react.svg";
+import img from "../assets/react.svg";
+
+export const PROJECT_LOGO = img;
