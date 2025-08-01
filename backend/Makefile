@@ -12,5 +12,6 @@ install:
 run:
 	@echo "Starting application..."
 	.venv/bin/python main.py
-	flask db upgrade
-    .venv/bin/python seed.py
+# IF running locally uncomment for database setup
+# 	flask db upgrade
+# 	.venv/bin/python seed.py
