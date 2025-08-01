@@ -4,7 +4,7 @@ backend/env/
 backend/.env
 __pycache__/
 .flaskenv
-
+.python-version
 
 
 
