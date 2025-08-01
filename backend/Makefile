@@ -1,8 +1,5 @@
 # Simple Makefile for backend application using uv
 
-# Variables
-PORT ?= 8080
-HOST ?= 0.0.0.0
 
 # Install dependencies using uv
 .PHONY: install
