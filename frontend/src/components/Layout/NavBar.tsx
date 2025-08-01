@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import logo from "../../assets/react.svg";
+import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const Navigation = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const [loading, setLoading] = useState<boolean>();
+  const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleLogout = async () => {
     localStorage.removeItem("token");
@@ -31,23 +33,28 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-        <Link to="/" className="text-xl font-bold">
-          Home
+    <nav className="bg-white shadow-sm py-1">
+      <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
+        <Link to="/" className="flex items-center gap-2">
+          <img src={logo} alt="Logo" className="w-24 h-12 object-contain" />
+          <span className="font-bold text-xl text-gray-800 no-underline">
+            Project Name
+          </span>
         </Link>
 
+        {/* Mobile menu toggle */}
         <button
-          className="md:hidden text-gray-400 hover:text-white focus:outline-none"
-          onClick={() => setMenuOpen(!menuOpen)}
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-black focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
         >
           <svg
-            className="w-6 h-6"
+            className="h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
             fill="none"
-            stroke="currentColor"
             viewBox="0 0 24 24"
+            stroke="currentColor"
           >
-            {menuOpen ? (
+            {isOpen ? (
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -59,37 +66,81 @@ const Navigation = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
+                d="M4 8h16M4 16h16"
               />
             )}
           </svg>
         </button>
 
-        <div
-          className={`md:flex md:items-center gap-4 ${
-            menuOpen ? "block" : "hidden"
-          } md:block`}
-        >
-          <Link to="/" className="block px-3 py-2 rounded hover:bg-gray-700">
-            About
-          </Link>
+        {/* Desktop nav */}
+        <div className="hidden md:flex md:items-center space-x-6 font-semibold text-lg">
           {!token ? (
             <Link
               to="/login"
-              className="block px-3 py-2 rounded hover:bg-gray-700"
+              className={`no-underline ${
+                location.pathname === "/login"
+                  ? "text-blue-600"
+                  : "text-gray-700 hover:text-blue-600"
+              }`}
+            >
+              Content
+            </Link>
+          ) : (
+            <Link
+              to="/orders"
+              className={` no-underline${
+                location.pathname === "/orders"
+                  ? "text-blue-600"
+                  : "text-gray-700 hover:text-blue-600"
+              }`}
+            >
+              Content
+            </Link>
+          )}
+
+          {!token ? (
+            <Link
+              to="/login"
+              className={`no-underline ${
+                location.pathname === "/login"
+                  ? "text-blue-600"
+                  : "text-gray-700 hover:text-blue-600"
+              }`}
             >
               Log In
             </Link>
           ) : (
-            <button
+            <Link
               onClick={handleLogout}
-              className="block px-3 py-2 rounded hover:bg-gray-700 text-left w-full md:w-auto"
+              to="/"
+              className={`no-underline ${
+                location.pathname === "/login"
+                  ? "text-blue-600"
+                  : "text-gray-700 hover:text-blue-600"
+              }`}
             >
-              Logout
-            </button>
+              Log Out
+            </Link>
           )}
         </div>
       </div>
+
+      {/* Mobile nav */}
+      {isOpen && (
+        <div className="md:hidden px-4 pb-4 space-y-2 font-semibold text-lg">
+          <Link
+            to="/orders"
+            onClick={() => setIsOpen(false)}
+            className={`block ${
+              location.pathname === "/orders"
+                ? "text-blue-600"
+                : "text-gray-700 hover:text-blue-600"
+            }`}
+          >
+            Orders
+          </Link>
+        </div>
+      )}
     </nav>
   );
 };
