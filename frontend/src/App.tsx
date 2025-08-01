@@ -6,14 +6,17 @@ import "./css/App.css";
 import ProfilePage from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
 import Footer from "./components/Layout/Footer";
+import Content from "./pages/Content";
 
 function App() {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navigation />
-      <main className="main-content">
+
+      <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/content" element={<Content />} />
           <Route path="/login" element={<AuthPage />} />
           <Route element={<PrivateRoute />}>
             <Route path="/profile/:userId" element={<ProfilePage />} />
@@ -22,7 +25,7 @@ function App() {
       </main>
 
       <Footer />
-    </>
+    </div>
   );
 }
 
