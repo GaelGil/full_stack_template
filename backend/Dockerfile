@@ -2,7 +2,7 @@ FROM python:3.12-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    FLASK_APP=run.py \
+    FLASK_APP=main.py \
     FLASK_ENV=development \
     PATH="/root/.local/bin:$PATH"
 
