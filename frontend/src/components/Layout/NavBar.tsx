@@ -1,8 +1,8 @@
 import { useState } from "react";
-import logo from "../../assets/react.svg";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { PROJECT_NAME } from "../../data/ProjectName";
+import { PROJECT_LOGO } from "../../data/ProjectLogo";
 const Navigation = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -36,7 +36,11 @@ const Navigation = () => {
     <nav className="bg-white shadow-sm py-1">
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
         <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="Logo" className="w-24 h-12 object-contain" />
+          <img
+            src={PROJECT_LOGO}
+            alt="Logo"
+            className="w-24 h-12 object-contain"
+          />
           <span className="font-bold text-xl text-gray-800 no-underline">
             {PROJECT_NAME}
           </span>

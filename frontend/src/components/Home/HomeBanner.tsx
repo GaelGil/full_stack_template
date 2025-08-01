@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-import logo from "../../assets/react.svg";
 import { PROJECT_NAME } from "../../data/ProjectName";
-
+import { PROJECT_LOGO } from "../../data/ProjectLogo";
 const HomeBanner = () => {
   const token = localStorage.getItem("token");
   return (
@@ -53,7 +52,7 @@ const HomeBanner = () => {
             {/* Right image */}
             <div className="w-full md:w-1/2 text-center mb-10 md:mb-0">
               <img
-                src={logo}
+                src={PROJECT_LOGO}
                 alt="Order Agent"
                 className="w-80 max-w-[90%] mx-auto rounded-3xl shadow-[0_4px_24px_rgba(25,118,210,0.10)]"
               />
