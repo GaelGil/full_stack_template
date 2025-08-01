@@ -2,7 +2,7 @@ import { useState } from "react";
 import logo from "../../assets/react.svg";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import { PROJECT_NAME } from "../../data/ProjectName";
 const Navigation = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -38,7 +38,7 @@ const Navigation = () => {
         <Link to="/" className="flex items-center gap-2">
           <img src={logo} alt="Logo" className="w-24 h-12 object-contain" />
           <span className="font-bold text-xl text-gray-800 no-underline">
-            Project Name
+            {PROJECT_NAME}
           </span>
         </Link>
 
@@ -88,10 +88,10 @@ const Navigation = () => {
           ) : (
             <Link
               to="/orders"
-              className={` no-underline${
+              className={`no-underline${
                 location.pathname === "/orders"
-                  ? "text-blue-600"
-                  : "text-gray-700 hover:text-blue-600"
+                  ? "text-blue-600 no-underline"
+                  : "text-gray-700 hover:text-blue-600 no-underline"
               }`}
             >
               Content

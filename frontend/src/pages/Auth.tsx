@@ -21,55 +21,25 @@ const AuthPage: React.FC = () => {
 
   return (
     <div className="mt-5">
+      {selected === "login" ? <LogInForm /> : <SignUpForm />}
       {/* the selection options for sorting options */}
       <div className="mb-4 flex justify-center space-x-4">
-        <label
-          htmlFor="sorting-toggle"
-          className={`cursor-pointer rounded border px-4 py-2 select-none 
-        ${
-          selected === "login"
-            ? "bg-blue-600 text-white border-blue-600"
-            : "bg-white text-blue-600 border-blue-600 hover:bg-blue-100"
-        }`}
-        >
-          <input
-            id="sorting-toggle"
-            type="radio"
-            name="visualizer"
-            value="sorting"
-            checked={selected === "login"}
-            onChange={() => setSelected("login")}
-            className="hidden"
-          />
-          Log In
-        </label>
-
-        <label
-          htmlFor="graph-toggle"
-          className={`cursor-pointer rounded border px-4 py-2 select-none 
-        ${
-          selected === "signup"
-            ? "bg-gray-600 text-white border-gray-600"
-            : "bg-white text-gray-600 border-gray-600 hover:bg-gray-100"
-        }`}
-        >
-          <input
-            id="graph-toggle"
-            type="radio"
-            name="visualizer"
-            value="graph"
-            checked={selected === "signup"}
-            onChange={() => setSelected("signup")}
-            className="hidden"
-          />
-          Sign Up
-        </label>
+        {selected === "login" ? (
+          <>
+            <p>Don't have an account yet?</p>
+            <p className="text-blue-600" onClick={() => setSelected("signup")}>
+              Sign Up
+            </p>
+          </>
+        ) : (
+          <>
+            <p>Already have an account?</p>
+            <p className="text-blue-600" onClick={() => setSelected("login")}>
+              Log In
+            </p>
+          </>
+        )}
       </div>
-      {/* if the current state of our variable selected=sorting then we load the 
-        sorting component with its info, otherwise we will load the traversal
-        visualiser component
-      */}
-      {selected === "login" ? <LogInForm /> : <SignUpForm />}
     </div>
   );
 };

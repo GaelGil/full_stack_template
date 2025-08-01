@@ -1,11 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import AuthPage from "./pages/Auth";
-import Navigation from "./components/Layout/NavBar";
-import "./css/App.css";
-import ProfilePage from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
 import Footer from "./components/Layout/Footer";
+import Navigation from "./components/Layout/NavBar";
+import Home from "./pages/Home";
+import AuthPage from "./pages/Auth";
+import ProfilePage from "./pages/Profile";
 import Content from "./pages/Content";
 
 function App() {
