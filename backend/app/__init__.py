@@ -13,6 +13,7 @@ def check_if_token_revoked(jwt_header, jwt_payload):
 
 def create_app():
     app = Flask(__name__)
+    print(f"DBURL: {Config.SQLALCHEMY_DATABASE_URI}")
     app.config.from_object(Config)
     db.init_app(app)
     migrate.init_app(app, db)
