@@ -5,7 +5,7 @@
 .PHONY: install
 install:
 	@echo "Installing dependencies with uv..."
-	.venv/bin/uv sync
+	uv sync
 
 # Run the application
 .PHONY: run
