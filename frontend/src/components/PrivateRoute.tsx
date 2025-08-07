@@ -1,9 +1,9 @@
 // components/PrivateRoute.tsx
 import { Navigate, Outlet } from "react-router-dom";
-
+import { useUser } from "../context/UserContext";
 const PrivateRoute = () => {
-  const isAuthenticated = !!localStorage.getItem("token");
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+  const { user } = useUser();
+  return user ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

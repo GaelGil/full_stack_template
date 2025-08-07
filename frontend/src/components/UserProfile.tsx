@@ -20,13 +20,11 @@ const UserProfile = ({ userId }: { userId?: string }) => {
   useEffect(() => {
     const fetchProfile = async () => {
       setLoading(true);
-      const token = localStorage.getItem("token");
       const idToFetch = userId || user?.id;
-
-      if (!token || !idToFetch) return;
+      if (!idToFetch) return;
 
       try {
-        const fetchedUser = await getUserProfile(idToFetch, token);
+        const fetchedUser = await getUserProfile(idToFetch);
         setProfile(fetchedUser);
       } catch (error) {
         console.error("Error fetching profile:", error);

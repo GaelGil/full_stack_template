@@ -1,9 +1,9 @@
 import { BASE_URL } from "./url";
 
-export const getUserProfile = async (userId: string, token: string) => {
+export const getUserProfile = async (userId: string) => {
   const res = await fetch(`${BASE_URL}/profile/${userId}`, {
     headers: {
-      Authorization: `Bearer ${token}`,
+      credentials: "include", // ✅ important for session cookie
     },
   });
   if (!res.ok) {
