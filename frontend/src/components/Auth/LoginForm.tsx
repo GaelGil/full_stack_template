@@ -36,7 +36,6 @@ const LogInForm = () => {
     setMessage("Logging in...");
     try {
       const data = await login(username, password);
-      console.log("Login response:", data);
 
       if (!data.user) {
         setMessage("Login failed: user not returned");

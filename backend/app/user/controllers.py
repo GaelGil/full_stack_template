@@ -88,17 +88,18 @@ def logout():
 
 
 @users.route("/profile/<int:user_id>", methods=["GET"])
-def get_profile(user_id):
-    current_user_id = session.get("user_id")
-    if not current_user_id:
-        return jsonify({"msg": "unauthenticated"}), 401
-    if user_id != current_user_id:
-        return jsonify({"msg": "unauthorized access"}), 403
+def profile(user_id):
+    if "user_id" not in session:
+        return jsonify({"error": "Unauthorized"}), 401
+
+    if session["user_id"] != user_id:
+        return jsonify({"error": "Forbidden"}), 403
 
     user = User.query.get(user_id)
     if not user:
-        return jsonify({"msg": "User not found"}), 404
-    return jsonify({"id": user.id, "username": user.username, "email": user.email}), 200
+        return jsonify({"error": "User not found"}), 404
+
+    return jsonify({"user": user.to_dict()}), 200
 
 
 @users.route("/me", methods=["GET"])

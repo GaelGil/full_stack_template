@@ -1,40 +1,51 @@
-import Card from "react-bootstrap/Card";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Spinner from "react-bootstrap/Spinner";
 import { useEffect, useState } from "react";
-import type { User } from "../types/User";
-import { getUserProfile } from "../api/users";
-import { Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { getDefaultPhoto } from "../api/helper";
+import { Card, Container, Row, Col, Spinner, Image } from "react-bootstrap";
 import { useUser } from "../context/UserContext";
+import { getUserProfile } from "../api/users";
+import { getDefaultPhoto } from "../api/helper";
+import type { User } from "../types/User";
 
 const UserProfile = ({ userId }: { userId?: string }) => {
-  const { user } = useUser();
-  const [profile, setProfile] = useState<User>();
-  const [loading, setLoading] = useState<boolean>();
+  const { user, setUser } = useUser();
+  const [profile, setProfile] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfile = async () => {
       setLoading(true);
-      const idToFetch = userId || user?.id;
-      if (!idToFetch) return;
-
       try {
-        const fetchedUser = await getUserProfile(idToFetch);
-        setProfile(fetchedUser);
+        const idToFetch = userId || user?.id;
+
+        if (!idToFetch) {
+          // Try fetching from /me if user context is not set
+          const res = await fetch("http://localhost:5000/auth/me", {
+            method: "GET",
+            credentials: "include",
+          });
+
+          if (res.ok) {
+            const data = await res.json();
+            setUser(data.user);
+            setProfile(data.user);
+          } else {
+            throw new Error("Failed to fetch user");
+          }
+        } else {
+          const data = await getUserProfile(idToFetch);
+          setProfile(data);
+        }
       } catch (error) {
         console.error("Error fetching profile:", error);
+        navigate("/login");
       } finally {
         setLoading(false);
       }
     };
 
     fetchProfile();
-  }, [userId, user]);
+  }, [userId, user, setUser, navigate]);
 
   return (
     <Container className="py-5">
