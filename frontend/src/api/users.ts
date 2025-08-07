@@ -3,7 +3,7 @@ import { BASE_URL } from "./url";
 export const getUserProfile = async (userId: string) => {
   const res = await fetch(`${BASE_URL}/profile/${userId}`, {
     headers: {
-      credentials: "include", // ✅ important for session cookie
+      credentials: "include",
     },
   });
   if (!res.ok) {

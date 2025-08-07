@@ -37,6 +37,9 @@ export const signup = async (
   const res = await fetch(`${BASE_URL}/signup`, {
     method: "POST",
     credentials: "include",
+    headers: {
+      "Content-Type": "application/json", // ✅ Important for Flask to parse JSON
+    },
     body: JSON.stringify({ username, email, password }),
   });
   if (!res.ok) {

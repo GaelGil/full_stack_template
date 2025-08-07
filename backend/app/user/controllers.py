@@ -51,7 +51,12 @@ def signup():
     except IntegrityError:
         db.session.rollback()
         return jsonify({"error": "database error"}), 500
-    return jsonify({"msg": "signup succesful"}), 201
+    return jsonify(
+        {
+            "msg": "signup succesful",
+            "user": {"id": new_user.id, "username": new_user.username},
+        }
+    ), 201
 
 
 @users.route("/login", methods=["POST"])
