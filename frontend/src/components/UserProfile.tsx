@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Container, Row, Col, Spinner, Image } from "react-bootstrap";
 import { useUser } from "../context/UserContext";
-import { getUserProfile } from "../api/users";
+// import { getUserProfile } from "../api/users";
+import { getCurrentUser } from "../api/auth";
 import { getDefaultPhoto } from "../api/helper";
 import type { User } from "../types/User";
+import { getUser, getUserProfile } from "../api/users";
 
 const UserProfile = ({ userId }: { userId?: string }) => {
   const { user, setUser } = useUser();
@@ -20,10 +22,7 @@ const UserProfile = ({ userId }: { userId?: string }) => {
 
         if (!idToFetch) {
           // Try fetching from /me if user context is not set
-          const res = await fetch("http://localhost:5000/auth/me", {
-            method: "GET",
-            credentials: "include",
-          });
+          const res = await getCurrentUser();
 
           if (res.ok) {
             const data = await res.json();
