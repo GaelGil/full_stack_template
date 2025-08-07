@@ -11,7 +11,7 @@ const Navigation = () => {
   const [loading, setLoading] = useState<boolean>();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
 
   const handleLogout = async () => {
     localStorage.removeItem("token");
@@ -19,9 +19,7 @@ const Navigation = () => {
       setLoading(true);
       const res = await fetch("http://localhost:5000/auth/logout", {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        credentials: "include",
       });
       if (res.ok) {
         console.log(res.status);
@@ -82,7 +80,7 @@ const Navigation = () => {
 
         {/* Desktop nav */}
         <div className="hidden md:flex md:items-center space-x-6 font-semibold text-lg">
-          {!token ? (
+          {!user ? (
             <Link
               to="/login"
               className={`no-underline ${
@@ -106,7 +104,7 @@ const Navigation = () => {
             </Link>
           )}
 
-          {!token ? (
+          {!user ? (
             <Link
               to="/login"
               className={`no-underline ${
