@@ -10,11 +10,8 @@ const AuthPage: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      console.log("Redirecting because user is logged in");
-      navigate("/", { replace: true }); // Or your route
-    } else {
-      console.log("No token — stay on auth page");
+    if (!user) {
+      console.log("No user found, stay on auth page");
     }
   }, [navigate]);
 

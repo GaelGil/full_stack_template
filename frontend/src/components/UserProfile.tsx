@@ -2,15 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Container, Row, Col, Spinner, Image } from "react-bootstrap";
 import { useUser } from "../context/UserContext";
-// import { getUserProfile } from "../api/users";
-import { getCurrentUser } from "../api/auth";
 import { getDefaultPhoto } from "../api/helper";
-import type { User } from "../types/User";
-import { getUser, getUserProfile } from "../api/users";
 
 const UserProfile = ({ userId }: { userId?: string }) => {
   const { user, setUser } = useUser();
-  const [profile, setProfile] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -18,23 +13,7 @@ const UserProfile = ({ userId }: { userId?: string }) => {
     const fetchProfile = async () => {
       setLoading(true);
       try {
-        const idToFetch = userId || user?.id;
-
-        if (!idToFetch) {
-          // Try fetching from /me if user context is not set
-          const res = await getCurrentUser();
-
-          if (res.ok) {
-            const data = await res.json();
-            setUser(data.user);
-            setProfile(data.user);
-          } else {
-            throw new Error("Failed to fetch user");
-          }
-        } else {
-          const data = await getUserProfile(idToFetch);
-          setProfile(data);
-        }
+        console.log(user);
       } catch (error) {
         console.error("Error fetching profile:", error);
         navigate("/login");
@@ -57,11 +36,11 @@ const UserProfile = ({ userId }: { userId?: string }) => {
                   <Spinner animation="border" variant="primary" />
                   <Card.Title className="mt-3">Loading Profile...</Card.Title>
                 </div>
-              ) : profile ? (
+              ) : user ? (
                 <Row className="align-items-center">
                   <Col xs={4} className="text-center">
                     <Image
-                      src={profile.pfp || getDefaultPhoto()}
+                      src={user.pfp || getDefaultPhoto()}
                       roundedCircle
                       fluid
                       alt="Profile Avatar"
@@ -74,10 +53,10 @@ const UserProfile = ({ userId }: { userId?: string }) => {
                     />
                   </Col>
                   <Col xs={8}>
-                    <h4 className="mb-1">@{profile.username}</h4>
+                    <h4 className="mb-1">@{user.username}</h4>
                     <div className="d-flex gap-3 mt-2">
                       <Card.Subtitle
-                        onClick={() => navigate(`/edit-profile/${profile.id}`)}
+                        onClick={() => navigate(`/edit-profile/${user.id}`)}
                         style={{
                           cursor: "pointer",
                           color: "blue",
