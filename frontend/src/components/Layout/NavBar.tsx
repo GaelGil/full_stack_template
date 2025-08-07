@@ -4,10 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { PROJECT_NAME } from "../../data/ProjectName";
 import { PROJECT_LOGO } from "../../data/ProjectLogo";
 import { useUser } from "../../context/UserContext";
-
+import { logout } from "../../api/auth";
 const Navigation = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
   const [loading, setLoading] = useState<boolean>();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
@@ -17,13 +16,7 @@ const Navigation = () => {
     localStorage.removeItem("token");
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:5000/auth/logout", {
-        method: "POST",
-        credentials: "include",
-      });
-      if (res.ok) {
-        console.log(res.status);
-      }
+      await logout();
       setUser(null);
     } catch (error) {
       alert(`error logging out: ${error}`);

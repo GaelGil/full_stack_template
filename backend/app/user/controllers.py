@@ -102,7 +102,7 @@ def profile(user_id):
     return jsonify({"user": user.to_dict()}), 200
 
 
-@users.route("/me", methods=["GET"])
+@users.route("/users/me", methods=["GET"])
 def get_current_user():
     user_id = session.get("user_id")
     if not user_id:

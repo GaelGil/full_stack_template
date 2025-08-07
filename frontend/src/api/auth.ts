@@ -48,3 +48,15 @@ export const signup = async (
   const data = await res.json();
   return data;
 };
+
+export const logout = async () => {
+  const res = await fetch(`${BASE_URL}/logout`, {
+    method: "POST",
+    credentials: "include",
+  });
+  if (!res.ok) {
+    return new Error("Error");
+  }
+  const data = await res.json();
+  return data;
+};
