@@ -112,7 +112,5 @@ def profile(user_id):
 @login_required
 def get_current_user():
     user_id = session.get("user_id")
-    if not user_id:
-        return jsonify({"msg": "unauthenticated"}), 401
     user = User.query.get(user_id)
     return jsonify({"id": user.id, "username": user.username, "email": user.email})
