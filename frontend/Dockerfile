@@ -1,12 +1,19 @@
-FROM node:20-slim
+# Use the official Bun image for development
+FROM oven/bun:1
 
 WORKDIR /app
 
+# Copy package files first for caching bun install
+COPY package.json bun.lock* ./
 
-COPY package.json tsconfig.json tsconfig.app.json tsconfig.node.json vite.config.ts ./
-COPY src ./src
-COPY index.html ./
+# Install all dependencies (dev + prod)
+RUN bun install --frozen-lockfile
 
-RUN npm install
+# Copy all source files
+COPY . .
 
-CMD ["npm", "run", "dev"]
+# Expose default Vite port (adjust if you use a different one)
+EXPOSE 5173
+
+# Run Vite dev server, similar to your npm run dev
+CMD ["bun", "run", "dev"]
