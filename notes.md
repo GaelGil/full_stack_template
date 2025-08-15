@@ -1,26 +1,34 @@
-### Docker
+# Docker
 
 ### to make start up docker container after changes to dockerfile or yml
 
-```
+```sh
 docker compose up --build
 ```
 
 ### to stop the docker container
 
-```
+```sh
 docker compose down -v
 ```
 
 ### to access the psql server running in the container
 
-```
+```sh
 docker exec -it projectname-db-1 psql -U postgres -d dbname
 ```
 
 ### What is dokcer-compose.yml
 
 contains instructions for docker on how to create the container
+
+# will keep tables
+
+docker compose down Removes containers and networks, volumes kept
+
+# will not keep tables
+
+docker compose down -v Removes containers, networks, and volumes deleted
 
 # Backend
 
@@ -32,13 +40,13 @@ Apply changes to model.py or
 
 ### Step 2 (commit changes/generate migration)
 
-```
+```sh
 docker compose exec backend flask db migrate -m "your message"
 ```
 
 or
 
-```
+```sh
 docker exec -it projectname-backend-1 /bin/sh
 flask db migrate -m "your message"
 
@@ -50,27 +58,26 @@ After generating the migration edit migration manually if needed (column/table n
 
 Apply migration to database
 
-```
+```sh
 docker compose exec backend flask db upgrade
 ```
 
 or
 
-```
+```sh
 docker compose exec backend sh # (docker exec -it projectname-backend-1 /bin/sh)
 flask db upgrade
 ```
 
-# to sign into backend container
+## to sign into backend container
 
-```
-
+```sh
 docker compose exec backend sh # (docker exec -it projectname-backend-1 /bin/sh)
 ```
 
-# to sign into frontend container
+## to sign into frontend container
 
-```
+```sh
 docker compose exec frontend sh # (docker exec -it projectname-frontend-1 /bin/sh)
 ```
 
@@ -90,7 +97,7 @@ docker compose exec frontend sh # (docker exec -it projectname-frontend-1 /bin/s
 
 We change this table from user to users
 
-```
+```python
 class User(db.Model):
 **tablename** = 'users' # we changed the name from user -> users
 
@@ -100,34 +107,45 @@ class User(db.Model):
 
 ### We then run
 
-```
+```sh
 flask db migrate -m "Rename user table"
 ```
 
+(First we sign into docker container)
+
 Alembic will output something like this in the migration:
 
-```
+```python
 def upgrade():
 op.create_table('users', ...) # new table
 op.drop_table('user') # drops old one
 ```
 
-this is deleting the database and creating a new one, meaning we lose the data. instead we want to properly Rename
+This is deleting the database and creating a new one, meaning we lose the data. instead we want to properly Rename
 
-### first we do
+### Step 1
 
+We start by applying our changes to the model.py .
+
+```python
 class User(db.Model):
 **tablename** = 'users'
-
-# note: change any refrence of the old table 'user' to 'users'
-
-# then we generate the migration
-
-docker compose exec backend flask db migrate -m "Rename table from user to users"
-
-# the migration file generated was (a7163da23160_rename_table_from_user_to_users.py)
-
 ```
+
+note: change any refrence of the old table 'user' to 'users'
+
+### Step 2
+
+We then generate the migration file
+
+```sh
+docker compose exec backend flask db migrate -m "Rename table from user to users"
+```
+
+The migration file generated was (`a7163da23160_rename_table_from_user_to_users.py`)
+
+```python
+
 """Rename table from user to users
 
 Revision ID: a7163da23160
@@ -190,11 +208,15 @@ batch_op.create_foreign_key(batch_op.f('post_user_id_fkey'), 'user', ['user_id']
     )
     op.drop_table('users')
     # ### end Alembic commands ###
-```
-
-# now we manually update it to
 
 ```
+
+### Step 3
+
+This will craete a new table and drop the old one. So we will now we manually update it to.
+
+```python
+
 """Rename table from user to users
 
 Revision ID: a7163da23160
@@ -237,16 +259,22 @@ batch_op.create_foreign_key(batch_op.f('post_user_id_fkey'), 'user', ['user_id']
         batch_op.create_foreign_key(batch_op.f('friends_user_id_fkey'), 'user', ['user_id'], ['id'])
 
     op.rename_table('users', 'user') #### and this part
+
 ```
 
-# verify change
+### Step 4
 
-docker exec -it full_stack_template-db-1 psql -U postgres -d projectdb
+Now we can verify the changes by doing this
+
+```sh
+docker exec -it projectname-db-1 psql -U postgres -d dbname
 \dt
 SELECT \* FROM users;
+```
 
-# similarly for altering col names
+Similarly if we change a column name
 
+```python
 def upgrade():
 op.add_column('users', sa.Column('user_name', sa.String(length=80), nullable=False))
 op.execute('UPDATE users SET user_name = username')
@@ -256,23 +284,14 @@ def downgrade():
 op.add_column('users', sa.Column('username', sa.String(length=80), nullable=False))
 op.execute('UPDATE users SET username = user_name')
 op.drop_column('users', 'user_name')
+```
 
 # change to this
 
+```python
 def upgrade():
 op.alter_column('users', 'username', new_column_name='user_name')
 
 def downgrade():
 op.alter_column('users', 'user_name', new_column_name='username')
-
-# will keep tables
-
-docker compose down Removes containers and networks, volumes kept
-
-# will not keep tables
-
-docker compose down -v Removes containers, networks, and volumes deleted
-
-```
-
 ```
