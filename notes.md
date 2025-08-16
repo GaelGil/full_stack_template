@@ -295,3 +295,75 @@ op.alter_column('users', 'username', new_column_name='user_name')
 def downgrade():
 op.alter_column('users', 'user_name', new_column_name='username')
 ```
+
+## Creating a Vector Table with pgvector
+
+### Step 1
+
+Add to docker-compose.yml
+
+```yml
+image: pgvector/pgvector:pg17
+```
+
+### Step 2
+
+Enable pg vector extension
+
+```sh
+docker exec -it projectname_db_1 psql -U postgres -d dbname
+CREATE EXTENSION IF NOT EXISTS vector;
+```
+
+To verify exntension
+
+```sh
+\dx
+dbname=# \dx
+                             List of installed extensions
+  Name   | Version |   Schema   |                     Description
+---------+---------+------------+------------------------------------------------------
+ plpgsql | 1.0     | pg_catalog | PL/pgSQL procedural language
+ vector  | 0.8.0   | public     | vector data type and ivfflat and hnsw access methods
+(2 rows)
+```
+
+### Step 3
+
+Create the model
+
+```python
+from . import db
+from sqlalchemy.types import UserDefinedType
+
+class Vector(UserDefinedType):
+    def get_col_spec(self):
+        return "vector(1536)"  # matches embedding dimension
+
+class Document(db.Model):
+    __tablename__ = "documents"
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String, nullable=False)
+    embedding = db.Column(Vector)
+```
+
+### Step 4
+
+Generate the migration
+
+```sh
+flask db migrate -m "add documents table with embeddings"
+```
+
+in my gration file do
+
+```python
+from app.chat.models import Vector
+sa.Column('embedding', Vector(), nullable=True)
+```
+
+and apply the migration
+
+```
+flask db upgrade
+```
