@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Container, Row, Col, Spinner, Image } from "react-bootstrap";
-import { useUser } from "../context/UserContext";
-import { getDefaultPhoto } from "../api/helper";
+import { useUser } from "../../context/UserContext";
+import { getDefaultPhoto } from "../../api/helper";
 
 const UserProfile = ({ userId }: { userId?: string }) => {
   const { user, setUser } = useUser();

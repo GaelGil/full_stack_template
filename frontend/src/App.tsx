@@ -5,7 +5,7 @@ import Navigation from "./components/Layout/NavBar";
 import Home from "./pages/Home";
 import AuthPage from "./pages/Auth";
 import ProfilePage from "./pages/Profile";
-import Content from "./pages/Content";
+import ChatInterface from "./pages/Chat";
 import { useEffect } from "react";
 import { getCurrentUser } from "./api/auth";
 import { useUser } from "./context/UserContext";
@@ -30,7 +30,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<AuthPage />} />
           <Route element={<PrivateRoute />}>
-            <Route path="/content" element={<Content />} />
+            <Route path="/chat" element={<ChatInterface />} />
             <Route path="/profile/:userId" element={<ProfilePage />} />
           </Route>
         </Routes>
