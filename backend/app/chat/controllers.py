@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request, Response  # type: ignore
 from app.chat.services import ChatService  # type: ignore
+from app.auth.decorators import login_required
 import json
 
 chat = Blueprint("chat", __name__)
@@ -7,6 +8,7 @@ chat_service = ChatService()
 
 
 @chat.route("/message", methods=["POST"])
+@login_required
 def send_message():
     """Send a message to the AI agent and get a streaming response."""
     try:
@@ -26,6 +28,7 @@ def send_message():
 
 
 @chat.route("/message/stream", methods=["POST"])
+@login_required
 def send_message_stream():
     """Send a message to the AI agent and get a streaming SSE response."""
     try:
