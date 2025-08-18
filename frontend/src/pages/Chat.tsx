@@ -1,6 +1,6 @@
 import HomeBanner from "../components/Home/HomeBanner";
 
-const ChatInterface: React.FC = () => {
+const ChatPage: React.FC = () => {
   return (
     <>
       <HomeBanner />
@@ -8,4 +8,4 @@ const ChatInterface: React.FC = () => {
   );
 };
 
-export default ChatInterface;
+export default ChatPage;
