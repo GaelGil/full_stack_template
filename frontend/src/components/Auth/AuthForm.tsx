@@ -1,5 +1,4 @@
-// import { Form } from "react-bootstrap";
-import type { AuthFormProps } from "../../types/AuthFormProp.ts";
+import type { AuthFormProps } from "../../types/Auth/AuthFormProp.ts";
 
 const AuthForm: React.FC<AuthFormProps> = ({
   isLogin,
