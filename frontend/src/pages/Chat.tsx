@@ -1,9 +1,8 @@
-import HomeBanner from "../components/Home/HomeBanner";
-
+import ChatInterface from "../components/Chat/ChatInterface";
 const ChatPage: React.FC = () => {
   return (
     <>
-      <HomeBanner />
+      <ChatInterface />
     </>
   );
 };

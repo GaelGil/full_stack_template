@@ -4,9 +4,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 import { useEffect, useState } from "react";
-import type { Profile } from "../types/UserProfileProps";
-import { getUserProfile } from "../api/users";
-import { useUser } from "../context/UserContext";
+import type { Profile } from "../../types/Profile";
+import { getUserProfile } from "../../api/users";
+import { useUser } from "../../context/UserContext";
 
 const EditProfile = ({ userId }: { userId: string }) => {
   const { user } = useUser();
@@ -16,10 +16,9 @@ const EditProfile = ({ userId }: { userId: string }) => {
   useEffect(() => {
     const fetchProfile = async () => {
       setLoading(true);
-      const token = localStorage.getItem("token");
       const idToFetch = userId || user?.id;
 
-      if (!token || !idToFetch) return;
+      if (!user || !idToFetch) return;
 
       try {
         const fetchedUser = await getUserProfile(idToFetch);

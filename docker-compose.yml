@@ -1,5 +1,5 @@
-services:
-  db:
+services: # docker-compose.yml
+  db: # database service
     image: postgres:15
     environment:
       POSTGRES_USER: postgres
@@ -15,7 +15,7 @@ services:
       timeout: 5s
       retries: 5
 
-  backend:
+  backend: # backend service
     build: ./backend
     ports:
       - "5000:5000"
@@ -37,7 +37,7 @@ services:
       db:
         condition: service_healthy
 
-  frontend:
+  frontend: # frontend service
     build: ./frontend
     ports:
       - "5173:5173"

@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { PROJECT_NAME } from "../../data/ProjectName";
 import { PROJECT_LOGO } from "../../data/ProjectLogo";
+import { useUser } from "../../context/UserContext";
 const HomeBanner = () => {
-  const token = localStorage.getItem("token");
+  const user = useUser();
   return (
     <>
       <div className="min-h-[80vh] flex items-center justify-center bg-gradient-to-r from-[#e3f0ff] to-[#f8fafd]">
@@ -20,7 +21,7 @@ const HomeBanner = () => {
                 enim reprehenderit rem necessitatibus eaque omnis deserunt.
               </p>
 
-              {!token ? (
+              {!user ? (
                 <Link
                   to="/login"
                   className={`no-underline ${
@@ -35,9 +36,9 @@ const HomeBanner = () => {
                 </Link>
               ) : (
                 <Link
-                  to="/content"
+                  to="/chat"
                   className={` no-underline${
-                    location.pathname === "/content"
+                    location.pathname === "/chat"
                       ? "text-blue-600"
                       : "text-gray-700 hover:text-blue-600"
                   }`}
