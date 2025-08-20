@@ -186,8 +186,15 @@ const ChatInterface = () => {
       await fetchEventSource(
         `${BASE_URL}/api/chat/message?message=${encodeURIComponent(message)}`,
         {
-          method: "GET",
-          credentials: "include",
+          method: "POST",
+          credentials: "include", // include cookies if your auth relies on them
+          headers: {
+            "Content-Type": "application/json", // tell server it's JSON
+            Accept: "text/event-stream", // optional but descriptive
+          },
+          body: JSON.stringify({
+            message: message,
+          }),
           // open event is called when the SSE connection is established
           onopen: async (res) => {
             // if the response is not ok or status is not 200, throw an error
