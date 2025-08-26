@@ -65,7 +65,9 @@ const SignUpForm = () => {
 
   return (
     <div className="d-flex flex-column justify-content-center align-items-center">
-      <h3 className="text-primary-600"> Sign Up</h3>
+      <h3 className="text-primary-600">
+        <span className="text-secondary-300">Sign Up</span>
+      </h3>
       <div>
         {/* importing algorithm form component with sorting specific values */}
         <AuthForm

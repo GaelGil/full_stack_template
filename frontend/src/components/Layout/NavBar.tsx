@@ -28,7 +28,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="bg-white shadow-sm py-1">
+    <nav className=" shadow-sm py-1">
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
         <Link to="/" className="flex items-center gap-2 text-decoration-none">
           <img
@@ -36,7 +36,7 @@ const Navigation = () => {
             alt="Logo"
             className="w-24 h-12 object-contain"
           />
-          <span className="font-bold text-xl text-gray-800 no-underline">
+          <span className="text-primary-600 font-bold text-xl text-gray-800 no-underline">
             {PROJECT_NAME}
           </span>
         </Link>
@@ -102,15 +102,7 @@ const Navigation = () => {
       {/* Mobile nav */}
       {isOpen && (
         <div className="md:hidden px-4 pb-4 space-y-2 font-semibold text-lg">
-          <Link
-            to="/orders"
-            onClick={() => setIsOpen(false)}
-            className={`block ${
-              location.pathname === "/orders"
-                ? "text-blue-600"
-                : "text-gray-700 hover:text-blue-600"
-            }`}
-          >
+          <Link to="/orders" onClick={() => setIsOpen(false)}>
             Orders
           </Link>
         </div>

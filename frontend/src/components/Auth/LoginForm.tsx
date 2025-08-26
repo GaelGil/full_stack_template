@@ -56,7 +56,9 @@ const LogInForm = () => {
 
   return (
     <div className="d-flex flex-column justify-content-center align-items-center">
-      <h3 className="text-primary-600">Log In</h3>
+      <h3 className="text-primary-600">
+        <span className="text-secondary-300">Log In</span>
+      </h3>
 
       <div>
         <AuthForm
