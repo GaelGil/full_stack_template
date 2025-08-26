@@ -34,11 +34,11 @@ const ChatInput = ({ onSendMessage, disabled = false }: ChatInputProps) => {
       <button
         onClick={handleSend}
         disabled={!message.trim() || disabled}
-        className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200"
+        className="px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200"
       >
         {disabled ? (
           <div className="flex items-center space-x-2">
-            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-secondary-300"></div>
+            <div className="animate-spin rounded h-4 w-4 border-b-2 border-secondary-300"></div>
           </div>
         ) : (
           "Send"

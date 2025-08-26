@@ -22,7 +22,7 @@ const HomeBanner = () => {
                 enim reprehenderit rem necessitatibus eaque omnis deserunt.
               </p>
 
-              {user ? (
+              {!user ? (
                 <Link to="/login">
                   <button className="px-10 py-4 text-lg font-bold rounded bg-blue-500 text-white shadow-md hover:shadow-lg transition">
                     View Content

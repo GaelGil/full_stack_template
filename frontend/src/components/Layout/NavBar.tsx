@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { PROJECT_NAME } from "../../data/ProjectName";
 import { PROJECT_LOGO } from "../../data/ProjectLogo";
@@ -8,7 +8,6 @@ import { logout } from "../../api/auth";
 const Navigation = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>();
-  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const { user, setUser } = useUser();
 

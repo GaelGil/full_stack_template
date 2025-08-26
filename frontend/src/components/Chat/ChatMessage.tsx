@@ -8,7 +8,7 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
   if (message.role === "user") {
     return (
       <div className="flex justify-end">
-        <div className="max-w-[70%] bg-blue-600 text-white rounded-lg px-4 py-2">
+        <div className="max-w-[70%] bg-blue-500 text-primary-600 rounded-lg px-4 py-2">
           <div className="prose prose-sm prose-invert max-w-none">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {message.content}
@@ -28,7 +28,7 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
 
   return (
     <div className="flex justify-start">
-      <div className="max-w-[85%] bg-white rounded-lg border border-gray-200 overflow-hidden">
+      <div className="max-w-[85%]rounded-lg border rounded border-secondary-300 overflow-hidden">
         {hasBlocks ? (
           <div className="space-y-0">
             {blocks.map((block, idx) => {
@@ -61,8 +61,11 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
                 block.type === "final_response"
               ) {
                 return (
-                  <div key={idx} className="px-4 py-3 border-t border-gray-100">
-                    <div className="prose prose-sm max-w-none">
+                  <div
+                    key={idx}
+                    className="px-4 py-3 border-t border-secondary-300"
+                  >
+                    <div className="text-primary-600 prose prose-sm max-w-none">
                       <ReactMarkdown remarkPlugins={[remarkGfm]}>
                         {block.content || ""}
                       </ReactMarkdown>
@@ -76,8 +79,8 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
 
             {/* footer */}
             {!message.isLoading && (
-              <div className="px-4 py-2 bg-gray-50 border-t border-gray-100">
-                <p className="text-xs text-gray-500">
+              <div className="px-4 py-2 border-t rounded border-secondary-300">
+                <p className="text-xs text-primary-600">
                   {message.timestamp.toLocaleTimeString()}
                 </p>
               </div>
@@ -85,10 +88,10 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
 
             {/* spinner while loading */}
             {message.isLoading && (
-              <div className="px-4 py-3 border-t border-gray-100">
+              <div className="px-4 py-3 border-t border-secondary-300">
                 <div className="flex items-center space-x-2">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
-                  <span className="text-gray-600">Thinking...</span>
+                  <span className="text-primary-600">Thinking...</span>
                 </div>
               </div>
             )}
@@ -106,11 +109,11 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
               <div className="mt-2">
                 <div className="flex items-center space-x-2">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
-                  <span className="text-gray-600">Thinking...</span>
+                  <span className="text-primary-600">Thinking...</span>
                 </div>
               </div>
             ) : (
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-secondary-300 mt-1">
                 {message.timestamp.toLocaleTimeString()}
               </p>
             )}
