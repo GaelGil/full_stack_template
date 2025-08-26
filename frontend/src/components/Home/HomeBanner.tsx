@@ -11,10 +11,10 @@ const HomeBanner = () => {
           <div className="flex flex-col-reverse md:flex-row items-center">
             {/* Left content */}
             <div className="w-full md:w-1/2 text-left">
-              <h1 className="font-extrabold text-4xl md:text-5xl mb-6 text-[#1a237e]">
+              <h1 className="text-primary-600 font-extrabold text-4xl md:text-5xl mb-6 text-[#1a237e]">
                 {PROJECT_NAME}
               </h1>
-              <p className="text-lg md:text-xl text-gray-700 mb-8">
+              <p className="text-lg md:text-xl text-secondary-300 mb-8">
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                 Itaque, quaerat minima ducimus doloribus dolore, inventore
                 impedit iste maxime temporibus earum beatae tenetur quisquam
@@ -23,13 +23,13 @@ const HomeBanner = () => {
 
               {user ? (
                 <Link to="/login">
-                  <button className="px-10 py-4 text-lg font-bold rounded-lg bg-[#1976d2] text-white border-none shadow-md hover:shadow-lg transition">
+                  <button className="px-10 py-4 text-lg font-bold rounded bg-blue-500 text-white shadow-md hover:shadow-lg transition">
                     View Content
                   </button>
                 </Link>
               ) : (
                 <Link to="/chat">
-                  <button className="px-10 py-4 text-lg font-bold rounded-lg bg-[#1976d2] text-white border-none shadow-md hover:shadow-lg transition">
+                  <button className="px-10 py-4 text-lg font-bold rounded bg-blue-500 text-white shadow-md hover:shadow-lg transition">
                     View Content
                   </button>
                 </Link>

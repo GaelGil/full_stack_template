@@ -46,7 +46,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
 
     <button
       type="submit"
-      className="mt-4 w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition"
+      className="mt-4 w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition"
     >
       {isLogin ? "Login" : "Sign Up"}
     </button>

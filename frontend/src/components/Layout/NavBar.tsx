@@ -75,17 +75,17 @@ const Navigation = () => {
         <div className="hidden md:flex md:items-center space-x-6 font-semibold text-lg">
           {!user ? (
             <Link className="text-decoration-none" to="/login">
-              Chat
+              <span className="text-primary-600">Chat</span>
             </Link>
           ) : (
             <Link className="text-decoration-none" to="/chat">
-              Chat
+              <span className="text-primary-600">Chat</span>
             </Link>
           )}
 
           {!user ? (
             <Link className="text-decoration-none" to="/login">
-              Log In
+              <span className="text-primary-600">Log In</span>
             </Link>
           ) : (
             <Link
@@ -93,7 +93,7 @@ const Navigation = () => {
               onClick={handleLogout}
               to="/"
             >
-              Log Out
+              <span className="text-primary-600">Log Out</span>
             </Link>
           )}
         </div>
