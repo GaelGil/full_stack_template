@@ -30,7 +30,7 @@ const Navigation = () => {
   return (
     <nav className="bg-white shadow-sm py-1">
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
-        <Link to="/" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2 text-decoration-none">
           <img
             src={PROJECT_LOGO}
             alt="Logo"
@@ -74,49 +74,24 @@ const Navigation = () => {
         {/* Desktop nav */}
         <div className="hidden md:flex md:items-center space-x-6 font-semibold text-lg">
           {!user ? (
-            <Link
-              to="/login"
-              className={`no-underline ${
-                location.pathname === "/login"
-                  ? "text-blue-600"
-                  : "text-gray-700 hover:text-blue-600"
-              }`}
-            >
+            <Link className="text-decoration-none" to="/login">
               Chat
             </Link>
           ) : (
-            <Link
-              to="/chat"
-              className={`no-underline${
-                location.pathname === "/chat"
-                  ? "text-blue-600 no-underline"
-                  : "text-gray-700 hover:text-blue-600 no-underline"
-              }`}
-            >
+            <Link className="text-decoration-none" to="/chat">
               Chat
             </Link>
           )}
 
           {!user ? (
-            <Link
-              to="/login"
-              className={`no-underline ${
-                location.pathname === "/login"
-                  ? "text-blue-600"
-                  : "text-gray-700 hover:text-blue-600"
-              }`}
-            >
+            <Link className="text-decoration-none" to="/login">
               Log In
             </Link>
           ) : (
             <Link
+              className="text-decoration-none"
               onClick={handleLogout}
               to="/"
-              className={`no-underline ${
-                location.pathname === "/login"
-                  ? "text-blue-600"
-                  : "text-gray-700 hover:text-blue-600"
-              }`}
             >
               Log Out
             </Link>

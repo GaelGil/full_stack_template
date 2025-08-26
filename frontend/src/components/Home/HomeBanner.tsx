@@ -21,28 +21,14 @@ const HomeBanner = () => {
                 enim reprehenderit rem necessitatibus eaque omnis deserunt.
               </p>
 
-              {!user ? (
-                <Link
-                  to="/login"
-                  className={`no-underline ${
-                    location.pathname === "/login"
-                      ? "text-blue-600"
-                      : "text-gray-700 hover:text-blue-600"
-                  }`}
-                >
+              {user ? (
+                <Link to="/login">
                   <button className="px-10 py-4 text-lg font-bold rounded-lg bg-[#1976d2] text-white border-none shadow-md hover:shadow-lg transition">
                     View Content
                   </button>
                 </Link>
               ) : (
-                <Link
-                  to="/chat"
-                  className={` no-underline${
-                    location.pathname === "/chat"
-                      ? "text-blue-600"
-                      : "text-gray-700 hover:text-blue-600"
-                  }`}
-                >
+                <Link to="/chat">
                   <button className="px-10 py-4 text-lg font-bold rounded-lg bg-[#1976d2] text-white border-none shadow-md hover:shadow-lg transition">
                     View Content
                   </button>

@@ -1,15 +1,17 @@
 @import "tailwindcss";
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@layer base {
+  html {
+    @apply text-white;
+  }
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@theme {
+  --color-primary-600: oklch(12.9% 0.042 264.695);
+  --color-secondary-300: oklch(44.2% 0.017 285.786);
+}
+
+body {
+  background-color: #ffffff;
+  font-family: "Roboto", sans-serif;
 }
