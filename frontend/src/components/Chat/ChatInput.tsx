@@ -27,19 +27,18 @@ const ChatInput = ({ onSendMessage, disabled = false }: ChatInputProps) => {
           onKeyPress={handleKeyPress}
           placeholder="Ask me anything... (Press Enter to send, Shift+Enter for new line)"
           disabled={disabled}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+          className="text-secondary-300 w-full px-4 py-3 border border-secondary-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
           rows={Math.min(Math.max(1, message.split("\n").length), 5)}
-          style={{ minHeight: "50px" }}
         />
       </div>
       <button
         onClick={handleSend}
         disabled={!message.trim() || disabled}
-        className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200"
+        className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200"
       >
         {disabled ? (
           <div className="flex items-center space-x-2">
-            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-secondary-300"></div>
           </div>
         ) : (
           "Send"
