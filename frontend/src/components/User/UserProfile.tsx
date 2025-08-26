@@ -50,7 +50,7 @@ const UserProfile = ({ userId }: { userId?: string }) => {
                 </h4>
                 <div className="d-flex gap-3 mt-2">
                   <div
-                    className="text-blue-500"
+                    className="text-back-300"
                     onClick={() => navigate(`/edit-profile/${user.id}`)}
                   >
                     Edit Profile

@@ -24,13 +24,13 @@ const HomeBanner = () => {
 
               {!user ? (
                 <Link to="/login">
-                  <button className="px-10 py-4 text-lg font-bold rounded bg-blue-500 text-white shadow-md hover:shadow-lg transition">
+                  <button className="px-10 py-4 text-lg font-bold rounded bg-back-300 text-white shadow-md hover:shadow-lg transition">
                     View Content
                   </button>
                 </Link>
               ) : (
                 <Link to="/chat">
-                  <button className="px-10 py-4 text-lg font-bold rounded bg-blue-500 text-white shadow-md hover:shadow-lg transition">
+                  <button className="px-10 py-4 text-lg font-bold rounded bg-back-300 text-white shadow-md hover:shadow-lg transition">
                     View Content
                   </button>
                 </Link>

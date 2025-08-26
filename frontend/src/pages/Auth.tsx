@@ -23,14 +23,14 @@ const AuthPage: React.FC = () => {
         {selected === "login" ? (
           <>
             <p className="text-secondary-300">Don't have an account yet?</p>
-            <p className="text-blue-500" onClick={() => setSelected("signup")}>
+            <p className="text-back-300" onClick={() => setSelected("signup")}>
               Sign Up
             </p>
           </>
         ) : (
           <>
             <p className="text-secondary-300">Already have an account?</p>
-            <p className="text-blue-500" onClick={() => setSelected("login")}>
+            <p className="text-back-300" onClick={() => setSelected("login")}>
               Log In
             </p>
           </>

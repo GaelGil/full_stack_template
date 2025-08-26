@@ -17,7 +17,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
       value={username}
       onChange={onChange}
       required
-      className=" text-secondary-300 w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      className=" text-secondary-300 w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-back-300"
     />
 
     {!isLogin && (
