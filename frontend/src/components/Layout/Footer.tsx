@@ -1,12 +1,16 @@
-// import { Link } from "react-router-dom";
+import { Container, Text, Group, Box } from "@mantine/core";
 import { PROJECT_NAME } from "../../data/ProjectName";
 const Footer = () => {
   return (
-    <footer className=" text-white text-center py-3">
-      <div className="max-w-7xl mx-auto px-4">
-        <p className="mb-0">© 2025 {PROJECT_NAME}. All rights reserved.</p>
-      </div>
-    </footer>
+    <Box component="footer" p="md">
+      <Container size="lg">
+        <Group justify="center">
+          <Text size="sm" c="brand.3">
+            {PROJECT_NAME} &copy; 2025. All rights reserved.
+          </Text>
+        </Group>
+      </Container>
+    </Box>
   );
 };
 

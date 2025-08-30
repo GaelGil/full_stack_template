@@ -1,18 +1,10 @@
 @import "tailwindcss";
-
-/* @layer base {
-  html {
-    @apply text-white;
-  }
-} */
-
-@theme {
-  --color-primary-600: oklch(98.5% 0.001 106.423);
-  --color-secondary-300: oklch(70.5% 0.015 286.067);
-  --color-back-300: oklch(62.3% 0.214 259.815);
+@import "tailwindcss/utilities";
+:root[data-mantine-color-scheme="light"] {
+  --mantine-color-body: #f0f0f0; /* Light background color */
 }
 
-body {
-  background-color: oklch(12.9% 0.042 264.695);
-  font-family: "Roboto", sans-serif;
+/* Dark theme background */
+:root[data-mantine-color-scheme="dark"] {
+  --mantine-color-body: #1a1a1a; /* Dark background color */
 }
