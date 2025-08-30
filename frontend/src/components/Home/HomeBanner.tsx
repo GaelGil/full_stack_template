@@ -16,7 +16,7 @@ const HomeBanner = () => {
     <Container size="lg" mih={"100vh"} display={"flex"}>
       <Group gap="xl" justify="center" align="center">
         <Box flex={1}>
-          <Text fz="lg" c="brand.0" mb="xl">
+          <Text fz="lg" c="brand.9" mb="xl">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque,
             quaerat minima ducimus doloribus dolore, inventore impedit iste
             maxime temporibus earum beatae tenetur quisquam enim reprehenderit

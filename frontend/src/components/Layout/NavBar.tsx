@@ -38,7 +38,7 @@ const Navigation = () => {
     >
       <Anchor component={Link} to="/" display={"flex"} underline="never">
         <Image src={PROJECT_LOGO} alt="Logo" />
-        <Text c="brand.0" fz={"xl"} fw={700} ml="sm">
+        <Text c="brand.1" fz={"xl"} fw={700} ml="sm">
           {PROJECT_NAME}
         </Text>
       </Anchor>
@@ -138,7 +138,7 @@ const Navigation = () => {
             to="/chat"
             underline="never"
           >
-            <Text c="brand.0" style={{ padding: "0.5rem 1rem" }}>
+            <Text c="brand.9" style={{ padding: "0.5rem 1rem" }}>
               Chat
             </Text>
           </Anchor>

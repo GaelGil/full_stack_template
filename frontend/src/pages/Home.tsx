@@ -6,13 +6,13 @@ import Navigation from "../components/Layout/NavBar";
 const HomePage: React.FC = () => {
   return (
     <AppShell>
-      <AppShell.Header bg="brand.7" withBorder={false}>
+      <AppShell.Header>
         <Navigation />
       </AppShell.Header>
-      <AppShell.Main bg="brand.7">
+      <AppShell.Main>
         <HomeBanner />
       </AppShell.Main>
-      <AppShell.Footer bg="brand.7" withBorder={false}>
+      <AppShell.Footer>
         <Footer />
       </AppShell.Footer>
     </AppShell>
