@@ -5,20 +5,14 @@ import Navigation from "../components/Layout/NavBar";
 
 const HomePage: React.FC = () => {
   return (
-    <AppShell bg={"var(--mantine-color-background)"}>
-      <AppShell.Header
-        withBorder={false}
-        bg={"var(--mantine-color-background)"}
-      >
+    <AppShell>
+      <AppShell.Header>
         <Navigation />
       </AppShell.Header>
       <AppShell.Main>
         <HomeBanner />
       </AppShell.Main>
-      <AppShell.Footer
-        withBorder={false}
-        bg={"var(--mantine-color-background)"}
-      >
+      <AppShell.Footer>
         <Footer />
       </AppShell.Footer>
     </AppShell>

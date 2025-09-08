@@ -83,7 +83,7 @@ export const theme = createTheme({
     xl: "5px 5px 3px rgba(0, 0, 0, .25)",
   },
   /** Set your primary color */
-  primaryColor: "red",
+  primaryColor: "brand",
 
   components: {}, // default theme (can be 'dark')
 });
@@ -94,7 +94,6 @@ export const cssResolver: CSSVariablesResolver = (theme) => ({
     "--mantine-color-text-secondary": theme.colors.black[1],
     "--mantine-color-text-tertiary": theme.colors.black[8],
     "--mantine-color-text-quaternary": theme.colors.black[2],
-    "--mantine-color-accent": theme.colors.red[1],
     "--mantine-color-background": theme.colors.brand[7],
     "--mantine-color-background-secondary": theme.colors.brand[1],
     "--mantine-color-background-tertiary": theme.colors.brand[6],

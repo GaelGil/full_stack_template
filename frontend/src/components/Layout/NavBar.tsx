@@ -38,7 +38,7 @@ const Navigation = () => {
     >
       <Anchor component={Link} to="/" display={"flex"} underline="never">
         <Image src={PROJECT_LOGO} alt="Logo" />
-        <Text c="var(--mantine-color-text-primary)" fz={"xl"} fw={700} ml="sm">
+        <Text fz={"xl"} fw={700} ml="sm">
           {PROJECT_NAME}
         </Text>
       </Anchor>
@@ -50,12 +50,7 @@ const Navigation = () => {
         ) : (
           // load chat option
           <Anchor component={Link} to="/chat" underline="never">
-            <Button
-              radius="xl"
-              variant="outline"
-              c="var(--mantine-color-text-primary)"
-              bd={"1px solid var(--mantine-color-text-primary)"}
-            >
+            <Button radius="xl" variant="outline">
               Chat
             </Button>
           </Anchor>
@@ -63,12 +58,7 @@ const Navigation = () => {
 
         {!user ? (
           <Anchor component={Link} to="/login" underline="never">
-            <Button
-              radius="xl"
-              variant="outline"
-              c="var(--mantine-color-text-primary)"
-              bd={"1px solid var(--mantine-color-text-primary)"}
-            >
+            <Button radius="xl" variant="outline">
               Log In
             </Button>
           </Anchor>
@@ -80,12 +70,7 @@ const Navigation = () => {
             to="/"
             underline="never"
           >
-            <Button
-              radius="xl"
-              variant="outline"
-              c="var(--mantine-color-text-primary)"
-              bd={"1px solid var(--mantine-color-text-primary)"}
-            >
+            <Button radius="xl" variant="outline">
               Log Out
             </Button>
           </Anchor>
