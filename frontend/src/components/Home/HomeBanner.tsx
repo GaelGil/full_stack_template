@@ -11,7 +11,7 @@ import {
   Box,
 } from "@mantine/core";
 const HomeBanner = () => {
-  const user = useUser();
+  const { user } = useUser();
   return (
     <Container size="lg" mih={"100vh"} display={"flex"}>
       <Group gap="xl" justify="center" align="center">
@@ -25,7 +25,7 @@ const HomeBanner = () => {
 
           <Anchor
             component={Link}
-            to={!user ? "/chat" : "/login"}
+            to={!user ? "/login" : "/chat"}
             underline="never"
           >
             <Button radius="xl" size="lg">

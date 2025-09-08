@@ -317,13 +317,13 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
         {" "}
         {/* width same as input, centered */}
         {messages.length === 0 && (
-          <Box c="var(--mantine-color-text-primary)" ta="center" m={"xl"}>
+          <Box ta="center" m={"xl"}>
             <Title>I am your personal AI assistant</Title>
             <Text fw={500}>Ask Anything</Text>
           </Box>
         )}
         {isLoading ? (
-          <Box c="var(--mantine-color-text-primary)" ta="center">
+          <Box ta="center">
             <Title order={3}>Loading Chats</Title>
           </Box>
         ) : (
@@ -340,9 +340,6 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
       </Box>
 
       {/* Footer */}
-      <Box w="80%" mb="md" ta={"center"}>
-        <Text c="var(--mantine-color-text-tertiary)">Be Responsible</Text>
-      </Box>
     </Flex>
   );
 };
