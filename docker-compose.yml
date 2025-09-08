@@ -15,7 +15,7 @@ services: # docker-compose.yml
       timeout: 5s
       retries: 5
 
-  backend: # backend service
+  backend:
     build: ./backend
     ports:
       - "5000:5000"
@@ -37,7 +37,7 @@ services: # docker-compose.yml
       db:
         condition: service_healthy
 
-  frontend: # frontend service
+  frontend:
     build: ./frontend
     ports:
       - "5173:5173"

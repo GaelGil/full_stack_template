@@ -1,19 +1,30 @@
 import { useState, useRef, useEffect } from "react";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
-import { BASE_URL } from "../../api/url";
-import type { Message, ChatBlock } from "../../types/Chat";
+import { sendChatMessage } from "../../api/chat";
+import type { Message, ChatBlock, ChatInterfaceProps } from "../../types/Chat";
+import { Text, Box, Flex, Title } from "@mantine/core";
 
-const ChatInterface = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+const ChatInterface: React.FC<ChatInterfaceProps> = ({
+  currentMessages,
+  isLoadingMessages,
+  currentChatId,
+}) => {
+  const [messages, setMessages] = useState<Message[]>(currentMessages || []);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const currentStreamAbortRef = useRef<AbortController | null>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  useEffect(() => {
+    setMessages(currentMessages || []);
+  }, [currentMessages]);
+
+  useEffect(() => {
+    setIsLoading(isLoadingMessages);
+  }, [isLoadingMessages]);
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -47,14 +58,12 @@ const ChatInterface = () => {
 
   const readStreamAndHandleSSE = async (
     reader: ReadableStreamDefaultReader<Uint8Array>,
-    onParsed: (ev: any) => void,
-    signal: AbortSignal
+    onParsed: (ev: any) => void
   ) => {
     const decoder = new TextDecoder();
     let buf = "";
 
     while (true) {
-      if (signal.aborted) throw new DOMException("Aborted", "AbortError");
       const res = await reader.read();
       if (res.done) break;
       buf += decoder.decode(res.value, { stream: true });
@@ -101,10 +110,7 @@ const ChatInterface = () => {
       // find last streaming/text block if exists (init_response or final_response)
       const streamingIdx = (() => {
         for (let i = blocks.length - 1; i >= 0; i--) {
-          if (
-            blocks[i].type === "init_response" ||
-            blocks[i].type === "final_response"
-          ) {
+          if (blocks[i].type === "response") {
             return i;
           }
         }
@@ -116,12 +122,12 @@ const ChatInterface = () => {
         const existing = { ...blocks[streamingIdx] } as ChatBlock; // make a copy of last text block
         existing.content = (existing.content || "") + text; // append text
         // if final, mark as final_response
-        existing.type = isFinal ? "final_response" : "init_response";
+        existing.type = "response";
         blocks[streamingIdx] = existing;
       } else {
         // push new text block
         const block: ChatBlock = {
-          type: isFinal ? "final_response" : "init_response",
+          type: "response",
           content: text,
         };
         blocks.push(block);
@@ -130,9 +136,7 @@ const ChatInterface = () => {
       last.response = { ...last.response, blocks };
       // keep a quick content copy for fallback rendering
       const latestText = blocks
-        .filter(
-          (b) => b.type === "final_response" || b.type === "init_response"
-        )
+        .filter((b) => b.type === "response")
         .map((b) => b.content || "")
         .join("\n\n");
       last.content = latestText;
@@ -188,23 +192,18 @@ const ChatInterface = () => {
       }
 
       const blocks = last.response.blocks.map((b) => {
-        if (b.type === "init_response") {
-          return { ...b, type: "final_response" } as ChatBlock;
+        if (b.type === "response") {
+          return { ...b, type: "response" } as ChatBlock;
         }
         return b;
       });
 
       last.response = { ...last.response, blocks };
       // keep content synced to final text if present
-      const finalText =
-        blocks
-          .filter((b) => b.type === "final_response")
-          .map((b) => b.content || "")
-          .join("\n\n") ||
-        blocks
-          .filter((b) => b.type === "init_response")
-          .map((b) => b.content || "")
-          .join("\n\n");
+      const finalText = blocks
+        .filter((b) => b.type === "response")
+        .map((b) => b.content || "")
+        .join("\n\n");
       last.content = finalText;
       last.isLoading = false;
       last.timestamp = new Date();
@@ -239,30 +238,11 @@ const ChatInterface = () => {
     setIsLoading(true);
 
     // abort previous stream if any
-    currentStreamAbortRef.current?.abort();
-    const ac = new AbortController();
-    currentStreamAbortRef.current = ac;
 
+    console.log("Sending message:", message);
+    console.log("Sending chat ID:", currentChatId);
     try {
-      const streamUrl = `${BASE_URL}/api/chat/message/stream?t=${Date.now()}`;
-      const res = await fetch(streamUrl, {
-        method: "POST",
-        credentials: "include", // include cookies if your auth relies on them
-        headers: {
-          "Content-Type": "application/json", // tell server it's JSON
-          Accept: "text/event-stream", // optional but descriptive
-        },
-        body: JSON.stringify({
-          message: message,
-        }),
-        signal: ac.signal, // allows aborting the request
-      });
-
-      if (!res.ok) {
-        const text = await res.text();
-        throw new Error(`Stream failed: ${res.status} ${text}`);
-      }
-
+      const res = await sendChatMessage(message, currentChatId);
       const reader = res.body?.getReader();
       if (!reader) {
         throw new Error("Readable stream not supported by this response");
@@ -276,10 +256,7 @@ const ChatInterface = () => {
         console.log("SSE chunk text", parsed.text);
 
         switch (parsed.type) {
-          case "init_response":
-            upsertTextBlock(parsed.text ?? "", false);
-            break;
-          case "final_response":
+          case "response":
             upsertTextBlock(parsed.text ?? "", true);
             break;
           case "tool_use":
@@ -303,7 +280,7 @@ const ChatInterface = () => {
       };
 
       // read & parse the stream
-      await readStreamAndHandleSSE(reader, onParsed, ac.signal);
+      await readStreamAndHandleSSE(reader, onParsed);
 
       // stream finished normally
       finalizeTextBlocks();
@@ -330,39 +307,43 @@ const ChatInterface = () => {
       }
     } finally {
       // cleanup abort controller
-      if (currentStreamAbortRef.current === ac)
-        currentStreamAbortRef.current = null;
     }
   };
 
   return (
-    <div className="">
-      <div className="flex-1 overflow-y-auto">
-        <div className="max-w-4xl mx-auto px-8 py-6 space-y-6">
-          {messages.length === 0 && (
-            <div className="text-center py-16">
-              <h2 className="text-2xl font-semibold mb-3">
-                <span className="text-primary-600">
-                  I am your personal AI assistant
-                </span>
-              </h2>
-              <p className="text-secondary-300 mb-2 max-w-md mx-auto">
-                Ask Anything
-              </p>
-            </div>
-          )}
-
-          {messages.map((message) => (
+    <Flex direction="column" justify="flex-start" w="100%">
+      {/* Messages container */}
+      <Box w="80%" mb="md" p={"xl"}>
+        {" "}
+        {/* width same as input, centered */}
+        {messages.length === 0 && (
+          <Box c="var(--mantine-color-text-primary)" ta="center" m={"xl"}>
+            <Title>I am your personal AI assistant</Title>
+            <Text fw={500}>Ask Anything</Text>
+          </Box>
+        )}
+        {isLoading ? (
+          <Box c="var(--mantine-color-text-primary)" ta="center">
+            <Title order={3}>Loading Chats</Title>
+          </Box>
+        ) : (
+          messages.map((message) => (
             <ChatMessage key={message.id} message={message} />
-          ))}
-          <div ref={messagesEndRef} />
-        </div>
-      </div>
+          ))
+        )}
+        <div ref={messagesEndRef} />
+      </Box>
 
-      <div className="max-w-4xl mx-auto px-8 py-6">
+      {/* Input */}
+      <Box w="80%" mb="md">
         <ChatInput onSendMessage={sendMessage} disabled={isLoading} />
-      </div>
-    </div>
+      </Box>
+
+      {/* Footer */}
+      <Box w="80%" mb="md" ta={"center"}>
+        <Text c="var(--mantine-color-text-tertiary)">Be Responsible</Text>
+      </Box>
+    </Flex>
   );
 };
 

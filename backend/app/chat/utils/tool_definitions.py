@@ -1,1 +1,1 @@
-tool_definitions = {}
+tool_definitions = []

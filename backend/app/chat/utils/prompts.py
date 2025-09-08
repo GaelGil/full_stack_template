@@ -1,1 +1,1 @@
-PROMPT = ""
+AGENT_PROMPT = ""

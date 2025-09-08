@@ -17,11 +17,14 @@ def create_app():
         origins=["http://localhost:5173"],
         supports_credentials=True,
         allow_headers=["Content-Type", "Authorization"],
-        methods=["GET", "POST", "OPTIONS"],
+        methods=["GET", "POST", "OPTIONS", "DELETE"],
     )
 
     with app.app_context():
         from app.user import models as user_models
+        from app.chat import models as chat_models
+
+        # db.create_all()
 
     register_routes(app)
     return app
