@@ -43,7 +43,7 @@ class ChatService:
         # If no session exists, create a new one
         if not self.chat_session:
             self.chat_session = ChatSession(
-                user_id=self.user_id, name=default_chat_name()
+                user_id=int(self.user_id), name=default_chat_name()
             )
             db.session.add(self.chat_session)
             db.session.commit()

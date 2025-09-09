@@ -12,7 +12,13 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
         justify="flex-end" // 👈 user messages go to the left
         m="md"
       >
-        <Box bg="primaryColor" p="lg" bdrs="md" ta={"right"}>
+        <Box
+          bg="var(--mantine-color-text-quaternary)"
+          p="lg"
+          bdrs="md"
+          c={"var(--mantine-color-text-primary)"}
+          ta={"right"}
+        >
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {message.content}
           </ReactMarkdown>
@@ -28,7 +34,12 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
         justify="flex-start" // 👈 assistant messages go to the right
         mb="sm"
       >
-        <Box p="lg" bdrs="md">
+        <Box
+          bg="var(--mantine-color-background-secondary)"
+          p="lg"
+          bdrs="md"
+          c={"var(--mantine-color-text-primary)"}
+        >
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {message.content}
           </ReactMarkdown>
@@ -77,7 +88,7 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
             // if respose block, render text blocks
             if (block.type === "response") {
               return (
-                <Box p="sm">
+                <Box p="sm" c="var(--mantine-color-text-quaternary)">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
                     {message.content}
                   </ReactMarkdown>
@@ -91,7 +102,9 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
           {/* footer */}
           {!message.isLoading && (
             <Box>
-              <Text>{message.timestamp.toLocaleTimeString()}</Text>
+              <Text c="var(--mantine-color-text-quaternary)">
+                {message.timestamp.toLocaleTimeString()}
+              </Text>
             </Box>
           )}
 

@@ -48,6 +48,7 @@ const ChatPage: React.FC = () => {
 
     try {
       const data = await getUserChats(user.id);
+      console.log(data);
       setChats(data);
     } catch (error) {
       console.error("Error fetching chats:", error);
@@ -68,7 +69,13 @@ const ChatPage: React.FC = () => {
         // collapsed: { mobile: false },
       }}
     >
-      <AppShell.Navbar p={"xs"} w={"260px"}>
+      <AppShell.Navbar
+        bg={"var(--mantine-color-background-tertiary)"}
+        p={"xs"}
+        withBorder={false}
+        opacity={1}
+        w={"260px"}
+      >
         <Box flex="1">
           <Flex>
             <Image src={PROJECT_LOGO} alt="Logo" w="10%" h="10%" />
@@ -79,19 +86,22 @@ const ChatPage: React.FC = () => {
             underline="never"
             onClick={() => handleChatClick("")}
           >
-            <Text>New Chat</Text>
+            <Text c="var(--mantine-color-text-primary)">New Chat</Text>
           </Anchor>
           {loading ? (
-            <Text>Loading chats ...</Text>
+            <Text c="var(--mantine-color-text-primary)">Loading chats ...</Text>
           ) : (
             <Box>
-              <Title order={3}>Chats</Title>
+              <Title order={3} c="var(--mantine-color-text-tertiary)">
+                Chats
+              </Title>
 
               {chats.map((chat: any) => (
-                <Flex>
+                <Flex c="var(--mantine-color-text-primary)">
                   <Anchor
                     onClick={() => handleChatClick(chat.id)}
                     variant="filled"
+                    c="var(--mantine-color-text-primary)"
                     pt={"10px"}
                     underline="never"
                     style={{ cursor: "pointer" }}
@@ -113,12 +123,14 @@ const ChatPage: React.FC = () => {
               h="10%"
               radius={"xl"}
             />
-            <Text size="sm">{user.username}</Text>
+            <Text c="var(--mantine-color-text-primary)" size="sm">
+              {user.username}
+            </Text>
           </Anchor>
         </Box>
       </AppShell.Navbar>
 
-      <AppShell.Main>
+      <AppShell.Main bg={"var(--mantine-color-background-secondary)"}>
         <ChatInterface
           currentMessages={chatMessages}
           isLoadingMessages={isLoadingMessages}
