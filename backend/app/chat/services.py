@@ -10,11 +10,6 @@ import os
 import logging
 import json
 import traceback
-from datetime import datetime, timezone
-
-
-def default_chat_name():
-    return f"Chat {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')}"
 
 
 # logging stuff
@@ -40,14 +35,6 @@ class ChatService:
         # Load existing chat session if session_id is provided
         if self.session_id:
             self.chat_session = ChatSession.query.get(self.session_id)
-        # If no session exists, create a new one
-        if not self.chat_session:
-            self.chat_session = ChatSession(
-                user_id=int(self.user_id), name=default_chat_name()
-            )
-            db.session.add(self.chat_session)
-            db.session.commit()
-            self.session_id = self.chat_session.id
 
         # Initialize chat_history from DB
         self.chat_history = self.get_chat_history()
