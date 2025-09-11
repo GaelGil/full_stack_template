@@ -26,24 +26,30 @@ const AuthPage: React.FC = () => {
       <Group>
         {selected === "login" ? (
           <>
-            <Text c="dimmed">Don't have an account yet?</Text>
+            <Text c="var(--mantine-color-text-tertiary)">
+              Don't have an account yet?
+            </Text>
             <Text
               variant="link"
               component="span"
               onClick={() => setSelected("signup")}
               style={{ cursor: "pointer" }}
+              c="blue.5"
             >
               Sign Up
             </Text>
           </>
         ) : (
           <>
-            <Text c="dimmed">Already have an account?</Text>
+            <Text c="var(--mantine-color-text-tertiary)">
+              Already have an account?
+            </Text>
             <Text
               variant="link"
               component="span"
               onClick={() => setSelected("login")}
               style={{ cursor: "pointer" }}
+              c="blue.5"
             >
               Log In
             </Text>

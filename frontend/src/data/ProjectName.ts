@@ -1,1 +1,1 @@
-export const PROJECT_NAME = "ChatGPT";
+export const PROJECT_NAME = "Project";

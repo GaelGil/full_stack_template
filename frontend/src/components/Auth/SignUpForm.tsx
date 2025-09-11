@@ -67,7 +67,7 @@ const SignUpForm = () => {
       <Stack align="center">
         <Text size="xl" fw={700} c="primary">
           <Text component="span" c="var(--mantine-color-text-primary)">
-            Log In
+            Sign Up
           </Text>
         </Text>
         <AuthForm
