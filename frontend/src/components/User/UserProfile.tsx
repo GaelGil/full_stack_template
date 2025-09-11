@@ -1,28 +1,21 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 import { getDefaultPhoto } from "../../api/helper";
+import { useNavigate } from "react-router-dom";
 
-const UserProfile = ({ userId }: { userId?: string }) => {
-  const { user, setUser } = useUser();
-  const [loading, setLoading] = useState(true);
+const UserProfile = () => {
+  const { user, loading } = useUser();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      setLoading(true);
-      try {
-        console.log(user);
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-        navigate("/login");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProfile();
-  }, [userId, user, setUser, navigate]);
+  if (!user)
+    return (
+      <div className="flex-1 overflow-y-auto justify-center items-center">
+        <div className="max-w-4xl mx-auto px-8 py-6 space-y-6">
+          <div className="text-center py-4">
+            <h3>No profile data found</h3>
+          </div>
+        </div>
+      </div>
+    );
 
   return (
     <div className="flex-1 overflow-y-auto justify-center items-center">
